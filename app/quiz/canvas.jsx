@@ -1,3 +1,10 @@
+import * as THREE from "three"
+import { Reflector } from 'three/addons/objects/Reflector.js'
+import { EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js'
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
+
 function isMobile() {
 	let check = false
 
@@ -342,7 +349,7 @@ class Road extends THREE.Group {
 
 		this.add(road)
 
-		const reflector = new THREE.Reflector(new THREE.PlaneGeometry(10, 10), {
+		const reflector = new Reflector(new THREE.PlaneGeometry(10, 10), {
 			color: new THREE.Color(0x7f7f7f),
 			textureWidth: window.innerWidth * window.devicePixelRatio,
 			textureHeight: window.innerHeight * window.devicePixelRatio,
@@ -820,7 +827,7 @@ class FullScreen3DExample {
 		const width = window.innerWidth
 		const height = window.innerHeight
 
-		this.#composer = new THREE.EffectComposer(this.#renderer)
+		this.#composer = new EffectComposer(this.#renderer)
 		this.#composer.setSize(width, height)
 		this.#initRenderPass()
 
@@ -834,7 +841,7 @@ class FullScreen3DExample {
 	}
 
 	#initRenderPass() {
-		const renderPass = new THREE.RenderPass(this.#scene, this.#camera)
+		const renderPass = new RenderPass(this.#scene, this.#camera)
 
 		this.#composer.addPass(renderPass)
 	}
@@ -847,7 +854,7 @@ class FullScreen3DExample {
 		const radius = 0.5
 		const threshold = 0.1
 
-		const bloomPass = new THREE.UnrealBloomPass(
+		const bloomPass = new UnrealBloomPass(
 			resolution,
 			strength,
 			radius,
@@ -858,7 +865,7 @@ class FullScreen3DExample {
 	}
 
 	#initShaderPass() {
-		const pass = new THREE.ShaderPass({
+		const pass = new ShaderPass({
 			uniforms: {
 				tDiffuse: {
 					type: "t",
@@ -926,6 +933,11 @@ class FullScreen3DExample {
 		document.addEventListener("mousemove", this.#onMouseMove.bind(this))
 	}
 
+	#cleanupEventListeners() {
+		window.removeEventListener("resize", this.#onWindowResize.bind(this))
+		document.removeEventListener("mousemove", this.#onMouseMove.bind(this))
+	}
+
 	#onWindowResize() {
 		const width = window.innerWidth
 		const height = window.innerHeight
@@ -960,7 +972,7 @@ class FullScreen3DExample {
 		})
 
 		this.#composer.passes.forEach((pass) => {
-			if (pass instanceof THREE.ShaderPass) {
+			if (pass instanceof ShaderPass) {
 				// eslint-disable-next-line no-param-reassign
 				pass.uniforms.uTime.value = t % 10
 			}
@@ -991,6 +1003,12 @@ class FullScreen3DExample {
 
 	stop() {
 		cancelAnimationFrame(this.#frameRequestId)
+	}
+
+	cleanUp() {
+		this.#cleanupEventListeners()
+		this.stop()
+		this.#root.removeChild(this.#renderer.domElement)
 	}
 }
 

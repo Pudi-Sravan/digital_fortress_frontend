@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 ( function () {
 
 	class Reflector extends THREE.Mesh {
