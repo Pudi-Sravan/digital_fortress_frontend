@@ -12,9 +12,7 @@ import { useSession, getSession } from "next-auth/react";
 import handleSignIn from "@/components/GoogleSignIn/googleSignIn";
 import handleLogOut from "@/components/Logout/Logout";
 
-
 export default function Home() {
-
   const [loading, setLoading] = useState(true);
   const [textDigital, setTextDigital] = useState("DIGITAL");
   const [textFortress, setTextFortress] = useState("FORTRESS");
@@ -24,17 +22,15 @@ export default function Home() {
   const { data: session, status } = useSession();
 
   useEffect(() => {
-
     const signedIn = async () => {
-      console.log(session)
-      if(session){
+      console.log(session);
+      if (session) {
         // await backendSignIn();
-        setIsSignedIn(true)
+        setIsSignedIn(true);
+      } else {
+        setIsSignedIn(false);
       }
-      else{
-        setIsSignedIn(false)
-      }
-    }
+    };
 
     signedIn();
 
@@ -108,34 +104,65 @@ export default function Home() {
       ) : (
         <>
           {showMeteors && <Meteors className={styles.meteor} />}
-          <Navbar />
-          <div className={styles.head}>
-            <h1 className={styles.animatedText}>
-              <span className={styles.digitalText} >{textDigital}</span>
-              <span className={styles.space}> </span>
-              <span className={styles.fortressText}  >{textFortress}</span>
-            </h1>
-          </div>
-          {!isSignedIn ? <div className={styles.backbutton}>
-            <FaGoogle size={30} />
-            <div className={styles.buttonContainer1}>
-                <button id='work' type="button" name="Hover" className={styles.iconButton} onClick={async (event: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>) =>{event.preventDefault(); await handleSignIn();}}>
-                    <FaGoogle size={27} />
-                </button>
+          <div className={styles.main2}>
+            <Navbar />
+            <div className={styles.head}>
+              <h1 className={styles.animatedText}>
+                <span className={styles.digitalText}>{textDigital}</span>
+                <span className={styles.space}> </span>
+                <span className={styles.fortressText}>{textFortress}</span>
+              </h1>
             </div>
-        </div> : 
-          <div className={styles.backbutton}>
-          Sign Out
-          <div className={styles.buttonContainer1}>
-            <button id='work' type="button" name="Hover" className={styles.iconButton} onClick={async (event: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>) =>{event.preventDefault(); await handleLogOut();}}>
-              Sign Out
-            </button>
-          </div>
-        </div>}
+            {!isSignedIn ? (
+              <div className={styles.backbutton}>
+                <FaGoogle size={30} />
+                <div className={styles.buttonContainer1}>
+                  <button
+                    id="work"
+                    type="button"
+                    name="Hover"
+                    className={styles.iconButton}
+                    onClick={async (
+                      event:
+                        | React.MouseEvent<HTMLButtonElement>
+                        | React.TouchEvent<HTMLButtonElement>
+                    ) => {
+                      event.preventDefault();
+                      await handleSignIn();
+                    }}
+                  >
+                    <FaGoogle size={27} />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className={styles.backbutton}>
+                Sign Out
+                <div className={styles.buttonContainer1}>
+                  <button
+                    id="work"
+                    type="button"
+                    name="Hover"
+                    className={styles.iconButton}
+                    onClick={async (
+                      event:
+                        | React.MouseEvent<HTMLButtonElement>
+                        | React.TouchEvent<HTMLButtonElement>
+                    ) => {
+                      event.preventDefault();
+                      await handleLogOut();
+                    }}
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              </div>
+            )}
 
-          <div className={styles.Footer}>
-            <h1>CREATED BY GNU/LINUX USERS' GROUP</h1>
-            <FloatingDock items={socialMediaItems} />
+            <div className={styles.Footer}>
+              <h1>CREATED BY GNU/LINUX USERS' GROUP</h1>
+              <FloatingDock items={socialMediaItems} />
+            </div>
           </div>
         </>
       )}

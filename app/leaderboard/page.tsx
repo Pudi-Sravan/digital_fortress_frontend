@@ -47,17 +47,17 @@ export default function Leaderboard(){
           {loading ? (
             <Loader />
           ) : (
-            <>
+            <><div className={styles.main2}>
               <Navbar />
-              <div style={{ display:"flex" , flexDirection:"column" , justifyContent : "center" , alignItems : "center" , height: "60%" , gap:"1rem"}}>
-                <Positions />
+              <div className={styles.ranks}>
+              <Positions />
                 <Tiles />
-              </div>
               
-              <div className={styles.login}></div>
+              </div>
               <div className={styles.Footer}>
                 <h1>CREATED BY GNU/LINUX USERS' GROUP</h1>
                 <FloatingDock items={socialMediaItems} />
+              </div>
               </div>
             </>
           )}

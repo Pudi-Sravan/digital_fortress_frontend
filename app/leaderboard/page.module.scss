@@ -1,163 +1,46 @@
 @import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
-@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400');
-
-// Define mixins outside of the main block
-@mixin FaGoogle($bcolor, $url, $x1, $y1, $bor, $col) {
-    background: $bcolor;
-    -webkit-mask: url($url);
-    mask: url($url);
-    -webkit-mask-size: $x1 $y1;
-    mask-size: $x1 $y1;
-    border: $bor;
-    color: $col;
-}
+@import url("https://fonts.googleapis.com/css?family=Lato:100,300,400");
 
 .main {
+  height: 100vh;
+  width: 100vw;
+  background-image: url("/Extentedbackground.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .main2 {
     height: 100vh;
     width: 100vw;
-    background-image: url('/Extentedbackground.svg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-   
     position: relative;
-
-    .head {
-        height: 120px;
-        width: 65%;
-        font-size: 100px;
-        color: white;
-        position: absolute;
-        top: 15%;
-        left: 24%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: "Audiowide", sans-serif;
-        white-space: nowrap;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.408);
+    .ranks {
+      height: 75%;
+      width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1%;
     }
-
     .Footer {
-        height: 120px;
-        width: 56%;
-        font-size: 25px;
-        color: white;
-        position: absolute;
-        bottom: 5%;
-        left: 22%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-family: 'Inter', sans-serif;
-        font-weight: 800;
+      height: 120px;
+      width: 56%;
+      font-size: 25px;
+      color: white;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: "Inter", sans-serif;
+      font-weight: 800;
+      bottom: 0.5%;
     }
-
-    .buttonContainer {
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 85px;
-        height: 85px;
-        z-index: 1;
-        top: 38%;
-        left: 48%;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 6vh;
-        overflow: hidden;
-        transition: 0.5s;
-        letter-spacing: 1px;
-        clip-path: polygon(12% 0, 88% 0, 100% 12%, 100% 88%, 88% 100%, 12% 100%, 0 88%, 0 12%);
-        background-color: rgb(51, 255, 0);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .iconButton {
-            clip-path: polygon(12% 0, 88% 0, 100% 12%, 100% 88%, 88% 100%, 12% 100%, 0 88%, 0 12%);
-            width: 90%;
-            height: 90%;
-            font-size: 32px; // Adjust size as needed
-            color: transparent; // Color is set by mask effect
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-
-            @include FaGoogle(
-                #ffffff,
-                "https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/nature-sprite.png",
-                2300%,
-                100%,
-                none,
-                #fff
-            );
-
-            &:hover {
-                transform: scale(1.1); // Slight zoom effect
-                -webkit-animation: ani 0.7s steps(22) forwards;
-                animation: ani 0.7s steps(22) forwards;
-            }
-        }
-    }
-
-    @keyframes flicker {
-        0% {
-            color: transparent;
-        }
-        20% {
-            color: rgb(255, 255, 255);
-        }
-        40% {
-            color: transparent;
-        }
-        60% {
-            color: rgb(255, 255, 255);
-        }
-        80% {
-            color: transparent;
-        }
-        100% {
-            color: rgb(255, 255, 255);
-        }
-    }
-
-    .animatedText {
-        display: flex;
-    }
-
-    .digitalText,
-    .fortressText {
-        display: inline-block;
-        animation: flicker 1.5s linear forwards;
-    }
-
-    .space {
-        display: inline-block;
-        width: 100px;
-    }
-}
-
-@-webkit-keyframes ani {
-    from {
-        -webkit-mask-position: 0 0;
-        mask-position: 0 0;
-    }
-    to {
-        -webkit-mask-position: 100% 0;
-        mask-position: 100% 0;
-    }
-}
-
-@keyframes ani {
-    from {
-        -webkit-mask-position: 0 0;
-        mask-position: 0 0;
-    }
-    to {
-        -webkit-mask-position: 100% 0;
-        mask-position: 100% 0;
-    }
+  }
 }
