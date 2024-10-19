@@ -12,7 +12,7 @@ export default function Tiles() {
   //   { title: "NFL", rank: "6" },
   //   { title: "Nike", rank: "7" },
   // ];
-  const data = leaderboard.splice(0, 3);
+  const data = leaderboard;
 
   const spanRef = useRef<HTMLSpanElement>(null);
 

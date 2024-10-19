@@ -21,16 +21,18 @@ const Card : React.FC<CardProps> = ({ pos , username , avatar , score })=>{
        setIsHover(false);
     };
 
-    let color , height = "12rem";
+    let color , height = "13rem",width="30rem";
     if(pos === 'first'){
         color = "#FFD700";
         height = "15rem"
     }
     else if(pos === 'second'){
         color = "#C0C0C0";
+        width= "25rem";
     }
     else{
         color = "#CD7F32";
+        width= "25rem";
     }
 
     const cardStyle = {
@@ -46,8 +48,8 @@ const Card : React.FC<CardProps> = ({ pos , username , avatar , score })=>{
     }
 
     return (
-    <div className={styles.leaderboardItem}  style={{height:height}}>
-        <div className={styles.canvasContainer} style={{height:height}}>
+    <div className={styles.leaderboardItem}  style={{height:height,width:width}}>
+        <div className={styles.canvasContainer} style={{height:height,width:width}}>
             <Canvas color={color}/>
             <div className={styles.userInfo} style={cardStyle}
             onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>

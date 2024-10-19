@@ -37,7 +37,7 @@ $transition-timing: cubic-bezier(0.77, 0, 0.175, 1);
   }
 
   .clippedRectangle {
-    width: 99.65%;
+    width: 99.875%;
     height: 70px;
     clip-path: polygon(0 0, 98% 0, 100% 50%, 100% 100%, 2% 100%, 0 60%);
     display: flex;
