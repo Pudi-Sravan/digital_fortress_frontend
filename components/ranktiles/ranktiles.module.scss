@@ -1,62 +1,120 @@
 @import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
 
-$tile-color: white;
+$tile-color: #212121;
 $tile-color-green: #2CFF05;
+$transition-duration: 0.65s;
+$transition-timing: cubic-bezier(0.77, 0, 0.175, 1);
 
-.outerDiv {
-  width: 80%;
-  border-radius: 1rem;
-  overflow-y: scroll;
+@mixin smooth-transition {
+  transition-duration: $transition-duration;
+  transition-timing-function: $transition-timing;
 }
 
-.clippedRectangle {
+.outerDiv {
+  width: 92%;
+  border-radius: 1rem;
+  overflow-y: auto;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.outerclippedrec {
   width: 80%;
-  height: 80px;
+  height: 72px;
   clip-path: polygon(0 0, 98% 0, 100% 50%, 100% 100%, 2% 100%, 0 60%);
-  margin: 20px auto;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  font-family: "Audiowide", sans-serif;
-  font-weight: 500;
-  font-size: 1rem;
-  line-height: 3vw;
-  background: rgba(12, 100, 4, 0.5);
-  position: relative;
-  color: #2CFF05;
-  overflow: hidden;
-  z-index: 1;
-
-  &:before,
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: $tile-color-green;
-    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-    z-index: -1;
-  }
-
-  &:before {
-    transform: translateY(-100%);
-  }
-
-  &:after {
-    transform: translateY(100%);
-  }
+  justify-content: center;
+  background: $tile-color-green;
+  margin: 15px auto;
+  @include smooth-transition;
+  transition-property: background;
 
   &:hover {
-    color: lighten($tile-color, 30%);
+    background: $tile-color;
+  }
+
+  .clippedRectangle {
+    width: 99.65%;
+    height: 70px;
+    clip-path: polygon(0 0, 98% 0, 100% 50%, 100% 100%, 2% 100%, 0 60%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: "Audiowide", sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 3vw;
+    background: $tile-color;
+    position: relative;
+    color: $tile-color-green;
+    overflow: hidden;
+    z-index: 1;
+    padding: 28px;
+    @include smooth-transition;
+    transition-property: color;
+
+    .namerank {
+      width: 30%;
+      display: flex;
+      align-items: center;
+    }
+
+    .scorebox {
+      width: 7%;
+      height: 50px;
+      clip-path: polygon(0 0, 80% 0, 100% 50%, 100% 100%, 20% 100%, 0 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Audiowide", sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      line-height: 3vw;
+      background: $tile-color-green;
+      position: relative;
+      color: $tile-color;
+      overflow: hidden;
+      @include smooth-transition;
+      transition-property: background, color;
+    }
+
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: $tile-color-green;
+      @include smooth-transition;
+      transition-property: transform;
+      z-index: -1;
+    }
 
     &:before {
-      transform: translateY(-50%);
+      transform: translateY(-100%);
     }
 
     &:after {
-      transform: translateY(50%);
+      transform: translateY(100%);
+    }
+
+    &:hover {
+      color: $tile-color;
+
+      &:before,
+      &:after {
+        transform: translateY(0);
+      }
+
+      .scorebox {
+        background: $tile-color;
+        color: $tile-color-green;
+      }
     }
   }
 }

@@ -43,15 +43,26 @@ export default function Tiles() {
   return (
     <div className={styles.outerDiv}>
       {data.map((item, index) => (
-        <div
+        <div className={styles.outerclippedrec}>
+          <div
           key={index}
           className={styles.clippedRectangle}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseOut}
         >
-          <p>{item.username}</p>
+          <div className={styles.namerank}>
           <p>{data.indexOf(item) + 4}</p>
+          <p style={{marginLeft:"12px",fontSize:"20px"}}>{item.username}</p>
+          </div>
+          
+          <div className={styles.scorebox}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseOut}>
+            <p>{item.score}</p>
+          </div>
         </div>
+        </div>
+        
       ))}
     </div>
   );
