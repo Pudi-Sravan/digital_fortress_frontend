@@ -1,5 +1,5 @@
+"use client"
 import Image from "next/image";
-"use client";
 import styles from "./page.module.scss";
 import { useState, useEffect } from "react";
 import Loader from "@/components/3Dloader/Loader";

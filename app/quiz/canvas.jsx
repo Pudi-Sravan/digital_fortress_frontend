@@ -323,7 +323,7 @@ class MaterialsLibrary {
 	static road = new RoadMaterial()
 	static sun = new SunMaterial()
 	static mountain = new MountainMaterial()
-	static car = new CarMaterial()
+	// static car = new CarMaterial()
 	static wheel = new WheelMaterial()
 	static light = new LightMaterial()
 	static buildingA = new BuildingMaterialA()
@@ -675,7 +675,7 @@ class ObjectsLibrary {
 	static road = new Road()
 	static sun = new Sun()
 	static mountain = new Mountain()
-	static car = new Car()
+	// static car = new Car()
 	static city = new City()
 	static stars = new Stars()
 }
@@ -691,7 +691,7 @@ class SandboxWorld extends THREE.Group {
 	}
 
 	#initObjects() {
-		const { road, car, sun, city, mountain, stars } = ObjectsLibrary
+		const { road, sun, city, mountain, stars } = ObjectsLibrary
 
 		road.position.set(0, 0, 100)
 
@@ -702,19 +702,19 @@ class SandboxWorld extends THREE.Group {
 
 		mountain.position.set(0, 0, 200)
 
-		car.position.set(0.7, 0, 10)
-		car.rotation.set(0, -Math.PI / 2, 0)
+		// car.position.set(0.7, 0, 10)
+		// car.rotation.set(0, -Math.PI / 2, 0)
 
 		stars.position.set(0, 0, 250)
 
 		this.add(road)
 		this.add(sun)
-		this.add(car)
+		// this.add(car)
 		this.add(city)
 		this.add(mountain)
 		this.add(stars)
 
-		this.#savedObjects = { car, city }
+		this.#savedObjects = { city }
 	}
 
 	#initLights() {
@@ -744,7 +744,7 @@ class SandboxWorld extends THREE.Group {
 	update() {
 		const t = performance.now() / 1000
 
-		this.#savedObjects.car.position.set(0.7 + 0.2 * Math.sin(t), 0, 10)
+		// this.#savedObjects.car.position.set(0.7 + 0.2 * Math.sin(t), 0, 10)
 
 		this.#savedObjects.city.update()
 	}
