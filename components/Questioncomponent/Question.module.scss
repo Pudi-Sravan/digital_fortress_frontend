@@ -1,0 +1,27 @@
+.main {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    top: 15%;
+    left: 32%;
+    border-radius: 8px;
+    height: 700px;
+    width: 660px;
+    z-index: 3;
+  }
+  
+  .question {
+    height: 250px;
+    width: 650px;
+    background-color: aqua;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333; // Dark text
+  }
+  
+  .cluemap {
+    margin-top: 20px;
+  }
+  

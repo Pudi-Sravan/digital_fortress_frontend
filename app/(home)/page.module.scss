@@ -29,7 +29,7 @@
 .main {
   height: 100vh;
   width: 100vw;
-  background-image: url("/Extentedbackground.svg");
+  background-image: url("/DF4.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -60,6 +60,7 @@
       justify-content: center;
       font-family: "Audiowide", sans-serif; // Apply the custom font here
       white-space: nowrap;
+      margin-left: 5%;
 
       .animatedText {
         display: flex;
