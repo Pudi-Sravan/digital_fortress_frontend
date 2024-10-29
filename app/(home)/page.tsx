@@ -11,7 +11,6 @@ import { useSession, getSession } from "next-auth/react";
 import handleSignIn from "@/components/GoogleSignIn/googleSignIn";
 import handleLogOut from "@/components/Logout/Logout";
 import Rulescard from "@/components/Rulescard/rulescard";
-import Question from "@/components/Questioncomponent/Question";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -108,8 +107,6 @@ export default function Home() {
         <>
           {showMeteors && <Meteors className={styles.meteor} />}
           {rulesShow && <Rulescard rulesShow={rulesShow} setRulesShow={setRulesShow}/>}
-        <Question />
-        
           <div className={styles.main2}>
             <Navbar rulesShow={rulesShow} setRulesShow={setRulesShow}/>
             <div className={styles.head}>

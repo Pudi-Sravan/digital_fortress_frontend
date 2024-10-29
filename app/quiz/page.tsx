@@ -9,6 +9,7 @@ import { FloatingDock } from "@/components/floatingdock/floatingicons";
 import { useSession } from "next-auth/react"
 import { signIn, signOut } from 'next-auth/react';
 import * as THREE from 'three';
+import Question from "@/components/Questioncomponent/Question";
 
 import CarAnimation from "./canvas"
 
@@ -61,7 +62,10 @@ export default function Quiz() {
     }
   }, []);
 
-  return (
-    <div ref={containerRef} />
+  return (<>
+  <div ref={containerRef} />
+  <Question />
+  </>
+    
   )
 }
