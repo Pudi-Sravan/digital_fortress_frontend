@@ -1,8 +1,8 @@
 "use client";
-
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import styles from "./style.module.scss";
 
 type Tab = {
   title: string;
@@ -11,7 +11,7 @@ type Tab = {
 };
 
 export const Tabs = ({
-  tabs: propTabs = [],
+  tabs: propTabs,
   containerClassName,
   activeTabClassName,
   tabClassName,
@@ -29,16 +29,12 @@ export const Tabs = ({
   useEffect(() => {
     if (propTabs.length > 0) {
       setActive(propTabs[0]);
-      setTabs(propTabs); // Update tabs if propTabs changes
+      setTabs(propTabs);
     }
   }, [propTabs]);
 
   const moveSelectedTabToTop = (idx: number) => {
-    const newTabs = [...tabs];
-    const selectedTab = newTabs.splice(idx, 1);
-    newTabs.unshift(selectedTab[0]);
-    setTabs(newTabs);
-    setActive(newTabs[0]);
+    setActive(tabs[idx]);
   };
 
   const [hovering, setHovering] = useState(false);
@@ -47,7 +43,12 @@ export const Tabs = ({
 
   return (
     <>
-      <div className={cn("flex flex-row items-center justify-start overflow-auto max-w-full w-full", containerClassName)}>
+      <div
+        className={cn(
+          "flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar max-w-full w-full",
+          containerClassName
+        )}
+      >
         {tabs.map((tab, idx) => (
           <button
             key={tab.value}
@@ -55,66 +56,62 @@ export const Tabs = ({
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
             className={cn("relative px-4 py-2 rounded-full", tabClassName)}
-            style={{ transformStyle: "preserve-3d" }}
+            style={{
+              transformStyle: "preserve-3d",
+            }}
           >
             {active.value === tab.value && (
               <motion.div
                 layoutId="clickedbutton"
                 transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
-                className={cn("absolute inset-0 bg-gray-200 rounded-full", activeTabClassName)}
+                className={cn(
+                  "absolute inset-0",
+                  activeTabClassName
+                )}
+                style={{
+                  backgroundColor: "black",
+                  border: "2px solid #39ff14",
+                  borderRadius: "8px",
+                  zIndex: -1,
+                }}
               />
             )}
-            <span className="relative block text-black">{tab.title}</span>
+            <span className="relative block" style={{ color: "lightgreen" }}>
+              {tab.title}
+            </span>
           </button>
         ))}
       </div>
-      <FadeInDiv
-        tabs={tabs}
-        active={active}
-        key={active.value}
-        hovering={hovering}
-        className={cn("mt-10", contentClassName)}
-      />
+      <FadeInDiv tabs={tabs} active={active} hovering={hovering} />
     </>
   );
 };
 
-
-export const FadeInDiv = ({
-  className,
-  tabs,
-  active,
-  hovering,
-}: {
-  className?: string;
-  tabs: Tab[];
-  active: Tab;
-  hovering?: boolean;
-}) => {
+export const FadeInDiv = ({ tabs, active, hovering }) => {
   return (
-    <div className="relative w-full h-full">
+    <div className={styles.fadeInContainer}>
       {tabs.map((tab, idx) => (
         <motion.div
           key={tab.value}
           layoutId={tab.value}
+          className={styles.outerFadeIn}
           style={{
             scale: 1 - idx * 0.1,
             top: hovering ? idx * -45 : 0,
             zIndex: -idx,
             opacity: idx < 3 ? 1 - idx * 0.1 : 0,
-            backgroundColor: '#f0f0f0', // Set your desired background color
-            borderRadius: '8px', // Optional: add some border radius
-            padding: '16px', // Optional: add some padding for better spacing
           }}
           animate={{
-            y: active.value === tab.value ? [0, 30, 0] : 0,
+            y: active.value === tab.value ? [0, 10, 0] : 0,
           }}
-          className={cn("w-full h-full absolute top-0 left-0", className)}
         >
-          {tab.content}
+          {active.value === tab.value && (
+            <div className={styles.innerFadeIn}>
+              {tab.content}
+            </div>
+          )}
         </motion.div>
       ))}
     </div>
   );
 };
-

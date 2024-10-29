@@ -37,7 +37,9 @@ export default function Question() {
 
   return (
     <div className={styles.main}>
+      <div className={styles.outerquestion}>
       <div className={styles.question}></div>
+      </div>
       <div className={styles.cluemap}>
         <Tabs tabs={tabs} />
       </div>
