@@ -5,6 +5,7 @@ import styles from "./navbar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXing } from "@fortawesome/free-brands-svg-icons"; // Example icon
 import Link from "next/link";
+import {useDeviceType} from "@/hooks/useDeviceType"
 
 interface NavbarProps {
   rulesShow: boolean;
@@ -15,7 +16,8 @@ export default function Navbar({ rulesShow, setRulesShow }: NavbarProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isPulseActive, setIsPulseActive] = useState(false);
   const stickyElement = useRef<HTMLDivElement | null>(null);
-
+  const deviceType = useDeviceType();
+  
   function handleHeaderClick() {
     setIsSidebarOpen((prev) => !prev);
   }
@@ -39,16 +41,19 @@ export default function Navbar({ rulesShow, setRulesShow }: NavbarProps) {
   return (
     <div>
       <div className={`${styles.nav} ${isSidebarOpen ? styles.hidden : ""}`}>
-        <Header ref={stickyElement} onClick={handleHeaderClick} />
+        {deviceType !== "monitor" && <Header ref={stickyElement} onClick={handleHeaderClick} />}
         <StickyCursor stickyElement={stickyElement} />
-        <ul className={styles.Options}>
+        {deviceType === "monitor" && (<ul className={styles.Options}>
           <li className={styles.contentitem}>
             <Link href="/" className={styles.linklinkhelike}>
               <span>HOME</span>
             </Link>
           </li>
-          <li className={styles.contentitem} onClick={() => setRulesShow(!rulesShow)}>
-            <span style={{cursor:'pointer'}}>RULES</span>
+          <li
+            className={styles.contentitem}
+            onClick={() => setRulesShow(!rulesShow)}
+          >
+            <span style={{ cursor: "pointer" }}>RULES</span>
           </li>
           <li className={styles.contentitem}>
             <Link href="/leaderboard" className={styles.linklinkhelike}>
@@ -60,7 +65,10 @@ export default function Navbar({ rulesShow, setRulesShow }: NavbarProps) {
               <span>QUIZ</span>
             </Link>
           </li>
-        </ul>
+          <li>
+            <div className="profile-circle"></div>
+          </li>
+        </ul>)}
       </div>
       <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ""}`}>
         <div className={styles.sidebarContent}>
@@ -73,26 +81,34 @@ export default function Navbar({ rulesShow, setRulesShow }: NavbarProps) {
           <div className={styles.navOptions}>
             <Link
               href="/"
-              className={`${styles.btn5} ${isPulseActive ? styles.pulseActive : ""}`}
+              className={`${styles.btn5} ${
+                isPulseActive ? styles.pulseActive : ""
+              }`}
             >
               <h1>HOME</h1>
             </Link>
             <Link
               href="#"
-              className={`${styles.btn5} ${isPulseActive ? styles.pulseActive : ""}`}
+              className={`${styles.btn5} ${
+                isPulseActive ? styles.pulseActive : ""
+              }`}
               onClick={() => setRulesShow(true)} // Add onClick to open rules
             >
               <h1>RULES</h1>
             </Link>
             <Link
               href="/leaderboard"
-              className={`${styles.btn5} ${isPulseActive ? styles.pulseActive : ""}`}
+              className={`${styles.btn5} ${
+                isPulseActive ? styles.pulseActive : ""
+              }`}
             >
               <h1>LEADERBOARD</h1>
             </Link>
             <Link
               href="/quiz"
-              className={`${styles.btn5} ${isPulseActive ? styles.pulseActive : ""}`}
+              className={`${styles.btn5} ${
+                isPulseActive ? styles.pulseActive : ""
+              }`}
             >
               <h1>QUIZ</h1>
             </Link>
