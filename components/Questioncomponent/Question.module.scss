@@ -1,27 +1,38 @@
 .main {
     position: absolute;
     display: flex;
-    flex-direction: column;
     padding: 5px;
-    top: 15%;
-    left: 32%;
+    top: 20%;
+    left: 6%;
     border-radius: 8px;
-    height: 700px;
-    width: 660px;
+    height: 60%;
+    width: 90%;
     z-index: 3;
-  }
+    justify-content: space-between;
+    .outerquestion{
+      height: 100%;
+      width: 36%;
+      background-color: rgba(9, 255, 0, 0.89);
+      clip-path: polygon(0 0, 91% 0, 100% 13%, 100% 100%, 16% 100%, 0 90%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .question {
+        height: 99%;
+        width: 99%;
+        background-color: rgba(0, 0, 0, 0.788);
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333; 
+        clip-path: polygon(0 0, 91% 0, 100% 13%, 100% 100%, 16% 100%, 0 90%);
+      }
+    }  }
   
-  .question {
-    height: 250px;
-    width: 650px;
-    background-color: aqua;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333; // Dark text
-  }
+  
   
   .cluemap {
-    margin-top: 20px;
+    overflow: hidden;
+    height: 100%;
+    width: 35%;
   }
   
