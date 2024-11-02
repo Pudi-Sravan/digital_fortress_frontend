@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Question.module.scss";
 import { Tabs } from "../Tabs/tabs";
+import MainQuestion from "../MainQuestion/MainQuestion";
 
-export default function Question() {
+interface QuestionProps{
+  isCorrect : boolean ;
+  setIsCorrect : (val :boolean) => any ;
+}
+
+const Question : React.FC<QuestionProps> = ({isCorrect , setIsCorrect}) => {
   const [tabs, setTabs] = useState([]);
 
   useEffect(() => {
     const fetchTabs = async () => {
-      const tabData = [
+      const tabData: any = [
         {
           title: "Clue 1",
           value: "clue1",
@@ -36,13 +42,25 @@ export default function Question() {
   }, []);
 
   return (
-    <div className={styles.main}>
-      <div className={styles.outerquestion}>
-      <div className={styles.question}></div>
+    <>
+      <div className={styles.main}>
+        <div className={styles.outerquestion}>
+          <div className={styles.question}>
+            <MainQuestion onCorrectAnswer={() => {
+              setIsCorrect(true)
+              setTimeout(() => {
+                setIsCorrect(false)
+              }, 2000);
+              }} />
+          </div>
+        </div>
+        <div className={styles.cluemap}>
+          <Tabs tabs={tabs} />
+        </div>
       </div>
-      <div className={styles.cluemap}>
-        <Tabs tabs={tabs} />
-      </div>
-    </div>
+      <div className={styles.overlay + " " + (isCorrect ? styles.overlayActive : "")}></div>
+    </>
   );
 }
+
+export default Question ;
