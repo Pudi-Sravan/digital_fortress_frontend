@@ -598,14 +598,14 @@ class City extends THREE.Group {
 		}
 
 		if (choice < 0.3) {
-			return new BuildingB()
+			return new BuildingD()
 		}
 
 		if (choice < 0.9) {
 			return new BuildingC()
 		}
 
-		return new BuildingD()
+		return new BuildingB()
 	}
 
 	constructor() {
@@ -682,6 +682,10 @@ class ObjectsLibrary {
 
 class SandboxWorld extends THREE.Group {
 	#savedObjects
+	#currentSpeed = 0.5 // Initial speed
+    #targetSpeed = 0.5 // Target speed
+    #accelerationDuration = 0 // Duration of acceleration in seconds
+    #accelerationStartTime = 0 // Start time of acceleration
 
 	constructor() {
 		super()
@@ -709,18 +713,17 @@ class SandboxWorld extends THREE.Group {
 
 		this.add(road)
 		this.add(sun)
-		this.add(car)
 		this.add(city)
 		this.add(mountain)
 		this.add(stars)
 
-		this.#savedObjects = { car, city }
+		this.#savedObjects = { car, city}
 	}
 
 	#initLights() {
 		const ambient = new THREE.AmbientLight({
 			color: COLOR_PALETTE.color3,
-			intensity: 0.1,
+			intensity: 2,
 		})
 
 		this.add(ambient)
@@ -739,13 +742,32 @@ class SandboxWorld extends THREE.Group {
 		}
 
 		this.add(point)
+
+        const directionalLight = new THREE.DirectionalLight(COLOR_PALETTE.white, 1)
+        directionalLight.position.set(100, 100, 100).normalize()
+        this.add(directionalLight)
 	}
+
+	accelerate(targetSpeed, duration) {
+        this.#targetSpeed = targetSpeed
+        this.#accelerationDuration = duration
+        this.#accelerationStartTime = performance.now() / 1000
+    }
 
 	update() {
 		const t = performance.now() / 1000
 
-		this.#savedObjects.car.position.set(0.7 + 0.2 * Math.sin(t), 0, 10)
-
+		// Handle acceleration
+        if (this.#accelerationDuration > 0) {
+            const elapsedTime = t - this.#accelerationStartTime
+            if (elapsedTime < this.#accelerationDuration) {
+                const progress = elapsedTime / this.#accelerationDuration
+                this.#currentSpeed = THREE.MathUtils.lerp(0.5, this.#targetSpeed, progress)
+            } else {
+                this.#currentSpeed = this.#targetSpeed
+                this.#accelerationDuration = 0 // Reset acceleration
+            }
+        }
 		this.#savedObjects.city.update()
 	}
 }
@@ -1003,6 +1025,10 @@ class FullScreen3DExample {
 
 	stop() {
 		cancelAnimationFrame(this.#frameRequestId)
+	}
+
+	accelerate(targetSpeed, duration) {
+		this.#world.accelerate(targetSpeed, duration)
 	}
 
 	cleanUp() {

@@ -1,38 +1,62 @@
 .main {
-    position: absolute;
-    display: flex;
-    padding: 5px;
-    top: 20%;
-    left: 6%;
-    border-radius: 8px;
-    height: 60%;
-    width: 90%;
-    z-index: 3;
-    justify-content: space-between;
-    .outerquestion{
-      height: 100%;
-      width: 36%;
-      background-color: rgba(9, 255, 0, 0.89);
-      clip-path: polygon(0 0, 91% 0, 100% 13%, 100% 100%, 16% 100%, 0 90%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      .question {
-        height: 99%;
-        width: 99%;
-        background-color: rgba(0, 0, 0, 0.788);
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #333; 
-        clip-path: polygon(0 0, 91% 0, 100% 13%, 100% 100%, 16% 100%, 0 90%);
-      }
-    }  }
-  
-  
-  
-  .cluemap {
-    overflow: hidden;
+  position: absolute;
+  display: flex;
+  padding: 5px;
+  top: 20%;
+  left: 6%;
+  border-radius: 8px;
+  height: 60%;
+  width: 90%;
+  z-index: 3;
+  justify-content: space-between;
+
+  .outerquestion {
     height: 100%;
-    width: 35%;
+    width: 36%;
+    background-color: rgba(9, 255, 0, 0.89);
+    clip-path: polygon(0 0, 91% 0, 100% 13%, 100% 100%, 16% 100%, 0 90%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .question {
+      height: 99%;
+      width: 99%;
+      background-color: rgba(0, 0, 0, 0.788);
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #333;
+      clip-path: polygon(0 0, 91% 0, 100% 13%, 100% 100%, 16% 100%, 0 90%);
+    }
   }
-  
+}
+
+
+
+.cluemap {
+  overflow: hidden;
+  height: 100%;
+  width: 35%;
+}
+
+
+.overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  background-color: rgb(153, 255, 0 ,0.2);
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  transition: all 1s;
+  filter: blur(20px);
+}
+
+.overlayActive {
+  width: 120vw;
+  height: 120vw;
+  background-color: rgb(153, 255, 0 ,1);
+  z-index: 10;
+  filter: blur(100px);
+}
