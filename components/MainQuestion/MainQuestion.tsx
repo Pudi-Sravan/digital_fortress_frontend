@@ -1,21 +1,22 @@
-import React, { useState } from 'react'
-import style from './MainQuestion.module.css'
+import React, { useState } from 'react';
+import style from './MainQuestion.module.css';
+import Submit from '../Submitbutton/submitbutton';
 
-function MainQuestion({ onCorrectAnswer = () => { } }) {
-    const [answer, setAnswer] = useState('')
-    const [isCorrect, setIsCorrect] = useState(false)
+function MainQuestion({ onCorrectAnswer = () => {} }) {
+    const [answer, setAnswer] = useState('');
+    const [isCorrect, setIsCorrect] = useState(false);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAnswer(event.target.value)
-    }
+        setAnswer(event.target.value);
+    };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setTimeout(() => {
-            setIsCorrect(true)
-            onCorrectAnswer()
+            setIsCorrect(true);
+            onCorrectAnswer();
         }, 1000);
-    }
+    };
 
     return (
         <>
@@ -28,10 +29,10 @@ function MainQuestion({ onCorrectAnswer = () => { } }) {
                     placeholder="Enter your answer"
                     className={style.input}
                 />
-                <button type="submit" className={style.btn}>Submit</button>
+                <Submit /> 
             </form>
         </>
-    )
+    );
 }
 
-export default MainQuestion
+export default MainQuestion;

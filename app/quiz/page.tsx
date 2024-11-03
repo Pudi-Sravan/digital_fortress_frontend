@@ -1,28 +1,27 @@
 "use client";
 import styles from "./page.module.scss";
-import { useState, useEffect , useRef } from "react";
-import { useSession } from "next-auth/react"
+import { useState, useEffect, useRef } from "react";
+import { useSession } from "next-auth/react";
 import { signIn, signOut } from 'next-auth/react';
 import Question from "@/components/Questioncomponent/Question";
+import Quizrules from "@/components/Rulesquiz/rulesquiz";
 
-import CarAnimation from "./canvas"
+import CarAnimation from "./canvas";
 
 export default function Quiz() {
-  const [isCorrect, setIsCorrect] = useState(false)
-
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const animationRef = useRef<CarAnimation | null>(null);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-  
+    if (typeof window !== 'undefined' && containerRef.current) {
       const animation = new CarAnimation(containerRef.current);
       animation.start();
-      animationRef.current = animation ;
+      animationRef.current = animation;
 
       return () => {
         animation.cleanUp();
-      }
+      };
     }
   }, []);
 
@@ -32,11 +31,14 @@ export default function Quiz() {
     }
   }, [isCorrect]);
 
-  return (<>
-  <div ref={containerRef} />
-  <Question isCorrect={isCorrect} setIsCorrect={setIsCorrect} />
-  <div className={styles.overlay + " " + (isCorrect ? styles.overlayActive : "")}></div>
-  </>
-    
-  )
+  return (
+    <><div className={styles.main}>
+ {/* <Quizrules/> */}
+      <div ref={containerRef} />
+      <Question isCorrect={isCorrect} setIsCorrect={setIsCorrect} />
+      <div className={`${styles.overlay} ${isCorrect ? styles.overlayActive : ""}`}></div>
+   
+    </div>
+      </>
+  );
 }
