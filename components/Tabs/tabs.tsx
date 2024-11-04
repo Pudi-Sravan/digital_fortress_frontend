@@ -4,24 +4,24 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import styles from "./style.module.scss";
 
+// Type for the tab
 type Tab = {
   title: string;
   value: string;
-  content?: string | React.ReactNode | any;
+  content?: string[];
 };
 
+// Type for the Tabs component props
 export const Tabs = ({
   tabs: propTabs,
   containerClassName,
   activeTabClassName,
   tabClassName,
-  contentClassName,
 }: {
   tabs: Tab[];
   containerClassName?: string;
   activeTabClassName?: string;
   tabClassName?: string;
-  contentClassName?: string;
 }) => {
   const [active, setActive] = useState<Tab | null>(propTabs[0] || null);
   const [tabs, setTabs] = useState<Tab[]>(propTabs);
@@ -64,10 +64,7 @@ export const Tabs = ({
               <motion.div
                 layoutId="clickedbutton"
                 transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
-                className={cn(
-                  "absolute inset-0",
-                  activeTabClassName
-                )}
+                className={cn("absolute inset-0", activeTabClassName)}
                 style={{
                   backgroundColor: "black",
                   border: "2px solid #39ff14",
@@ -87,6 +84,7 @@ export const Tabs = ({
   );
 };
 
+// Type for FadeInDiv props
 export const FadeInDiv = ({ tabs, active, hovering }) => {
   return (
     <div className={styles.fadeInContainer}>
@@ -96,22 +94,62 @@ export const FadeInDiv = ({ tabs, active, hovering }) => {
           layoutId={tab.value}
           className={styles.outerFadeIn}
           style={{
-            scale: 1 - idx * 0.1,
-            top: hovering ? idx * -45 : 0,
-            zIndex: -idx,
-            opacity: idx < 3 ? 1 - idx * 0.1 : 0,
+            opacity: active.value === tab.value ? 1 : 0.5,
+            transition: "opacity 0.3s ease-in-out",
+            zIndex: active.value === tab.value ? 2 : 1,
+            top: hovering ? idx * -15 : 5,
           }}
           animate={{
-            y: active.value === tab.value ? [0, 10, 0] : 0,
+            y: active.value === tab.value ? [0, 40, 0] : 0,
           }}
         >
           {active.value === tab.value && (
             <div className={styles.innerFadeIn}>
-              {tab.content}
+              {/* Inline Typewriter effect */}
+              <TypewriterEffect
+                text={
+                  typeof tab.content === "string"
+                    ? tab.content
+                    : tab.content.join(" ")
+                }
+                speed={50}
+                pause={1000}
+              />
             </div>
           )}
         </motion.div>
       ))}
+    </div>
+  );
+};
+
+// Typewriter effect function
+const TypewriterEffect = ({ text, speed = 50, pause = 1000 }) => {
+  const [displayedText, setDisplayedText] = useState("");
+  const [charIndex, setCharIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+
+  useEffect(() => {
+    if (isTyping) {
+      if (charIndex < text.length) {
+        const timeout = setTimeout(() => {
+          setDisplayedText((prev) => prev + text[charIndex]);
+          setCharIndex((prev) => prev + 1);
+        }, speed);
+
+        return () => clearTimeout(timeout);
+      } else {
+        setIsTyping(false);
+      }
+    }
+  }, [charIndex, text, speed, isTyping]);
+
+  return (
+    <div className={styles.typewriter}>
+      <h3>
+        {displayedText}
+        {isTyping && <span className={styles.cursor} />}
+      </h3>
     </div>
   );
 };
