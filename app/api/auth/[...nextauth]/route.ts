@@ -1,22 +1,34 @@
 "use server"
 import NextAuth, { getServerSession } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import { backendSignIn } from '@/components/GoogleSignIn/googleSignIn';
  
 // Configuration options for authentication
 export const handler = NextAuth({
-  callbacks: {
-    async jwt({ token, account }) {
-      if (account) {
-        token.accessToken = account.access_token as string;
-        // token.refreshToken = account.refresh_token as string;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      session.accessToken = token.accessToken as string;
-      return session;
-    },
-  },
+  // callbacks: {
+    // async jwt({ token, account }) {
+    //   console.log(token)
+    //   // if (account) {
+    //   // token.accessToken = account.access_token as string;
+    //   console.log("Starting Backend SignIn")
+    //   await backendSignIn(token);
+    //   console.log("Ending Backend SignIn")
+    //   // token.refreshToken = account.refresh_token as string;
+    //   // }
+    //   return token;
+    // },
+    // async session({ session, token }) {
+    //   session.accessToken = token.accessToken as string;
+    //   return session;
+    // },
+    // async signIn({ account, profile }) {
+    //   console.log(account)
+    //   if (account?.provider === "google") {
+        
+    //   }
+    //   return true // Do different verification for other providers that don't have `email_verified`
+    // },
+  // },
 
   providers: [
     GoogleProvider({

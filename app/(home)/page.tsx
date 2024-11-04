@@ -132,7 +132,7 @@ export default function Home() {
                         | React.TouchEvent<HTMLButtonElement>
                     ) => {
                       event.preventDefault();
-                      await handleSignIn();
+                      handleSignIn();
                     }}
                   >
                     <FaGoogle size={27} />

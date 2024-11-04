@@ -1,9 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from './MainQuestion.module.css'
+import axios from 'axios'
 
 function MainQuestion({ onCorrectAnswer = () => { } }) {
     const [answer, setAnswer] = useState('')
     const [isCorrect, setIsCorrect] = useState(false)
+
+    useEffect(() => {
+
+        const getQuestions = async () => {
+            await axios.get(`${process.env.NEXT_PUBLIC_API_URL}quiz/getRound`)
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
+        console.log("Inside Use Effect");
+        getQuestions();
+    }, [])
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAnswer(event.target.value)

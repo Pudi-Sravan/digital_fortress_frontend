@@ -411,7 +411,7 @@ class Car extends THREE.Group {
 		super()
 
 		{
-			const material = MaterialsLibrary.car
+			// const material = MaterialsLibrary.car
 			const shape = new THREE.Shape()
 
 			shape.moveTo(0, 0)
@@ -433,7 +433,7 @@ class Car extends THREE.Group {
 		}
 
 		{
-			const material = MaterialsLibrary.car
+			// const material = MaterialsLibrary.car
 			const geometry = new THREE.CylinderGeometry(0.6, 1.2, 0.5, 4)
 			const roof = new THREE.Mesh(geometry, material)
 
@@ -717,7 +717,7 @@ class SandboxWorld extends THREE.Group {
 		this.add(mountain)
 		this.add(stars)
 
-		this.#savedObjects = { car, city}
+		this.#savedObjects = { city }
 	}
 
 	#initLights() {
