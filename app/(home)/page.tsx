@@ -11,6 +11,7 @@ import { useSession, getSession } from "next-auth/react";
 import handleSignIn from "@/components/GoogleSignIn/googleSignIn";
 import handleLogOut from "@/components/Logout/Logout";
 import Rulescard from "@/components/Rulescard/rulescard";
+import ProfileModal from "@/components/ProfileModal/profilemodal";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -18,8 +19,8 @@ export default function Home() {
   const [textFortress, setTextFortress] = useState("FORTRESS");
   const [showMeteors, setShowMeteors] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const [ rulesShow, setRulesShow ] = useState(false);
-
+  const [rulesShow, setRulesShow] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   const { data: session, status } = useSession();
 
@@ -106,9 +107,20 @@ export default function Home() {
       ) : (
         <>
           {showMeteors && <Meteors className={styles.meteor} />}
-          {rulesShow && <Rulescard rulesShow={rulesShow} setRulesShow={setRulesShow}/>}
+          {rulesShow && (
+            <Rulescard rulesShow={rulesShow} setRulesShow={setRulesShow} />
+          )}
+          {/* Profile Modal */}
+          {isProfileModalOpen && (
+            <ProfileModal
+              isOpen={isProfileModalOpen}
+              onClose={() => setIsProfileModalOpen(false)}
+              points={1234} // Replace with actual points data if available
+            />
+          )}
+          {}
           <div className={styles.main2}>
-            <Navbar rulesShow={rulesShow} setRulesShow={setRulesShow}/>
+            <Navbar rulesShow={rulesShow} setRulesShow={setRulesShow} isProfileModalOpen={isProfileModalOpen} setIsProfileModalOpen={setIsProfileModalOpen} />
             <div className={styles.head}>
               <h1 className={styles.animatedText}>
                 <span className={styles.digitalText}>{textDigital}</span>
