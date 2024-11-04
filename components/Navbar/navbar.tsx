@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Header from "../header";
 import StickyCursor from "../stickyCursor/";
+import ProfileModal from "@/components/ProfileModal/profilemodal"; // Import the ProfileModal component
 import styles from "./navbar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXing } from "@fortawesome/free-brands-svg-icons"; // Example icon
@@ -11,26 +12,32 @@ import { useSession } from "next-auth/react";
 interface NavbarProps {
   rulesShow: boolean;
   setRulesShow: React.Dispatch<React.SetStateAction<boolean>>;
+  isProfileModalOpen: boolean;
+  setIsProfileModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Navbar({ rulesShow, setRulesShow }: NavbarProps) {
+export default function Navbar({ rulesShow, setRulesShow , isProfileModalOpen, setIsProfileModalOpen}: NavbarProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isPulseActive, setIsPulseActive] = useState(false);
   const stickyElement = useRef<HTMLDivElement | null>(null);
   const deviceType = useDeviceType();
   const { data: session } = useSession();
-  console.log(session?.user);
-
+  
+  // Toggle sidebar
   function handleHeaderClick() {
     setIsSidebarOpen((prev) => !prev);
   }
+
+  // Toggle modal visibility
+  // function handleProfileClick() {
+  //   setIsProfileModalOpen(!isProfileModalOpen);
+  // }
 
   // Use useEffect to trigger pulse effect after ::before effect
   useEffect(() => {
     let timer: NodeJS.Timeout;
 
     if (isSidebarOpen) {
-      // Add pulse effect after 0.4s
       timer = setTimeout(() => {
         setIsPulseActive(true);
       }, 400);
@@ -47,8 +54,19 @@ export default function Navbar({ rulesShow, setRulesShow }: NavbarProps) {
         {deviceType !== "monitor" && (
           <Header ref={stickyElement} onClick={handleHeaderClick} />
         )}
-        <StickyCursor stickyElement={stickyElement} />
-
+        {/* Profile Picture with Click Event */}
+        <div className={styles.picdiv} onClick={() => setIsProfileModalOpen(!isProfileModalOpen)} style={{cursor: "pointer"}}>
+          {session && session.user?.image && (
+            <img
+              src={session?.user?.image}
+              alt="ProfilePic"
+              width={50}
+              height={50}
+              className={styles.profile}
+   
+            />
+          )}
+        </div>
         {deviceType === "monitor" && (
           <ul className={styles.Options}>
             <li className={styles.contentitem}>
@@ -71,27 +89,6 @@ export default function Navbar({ rulesShow, setRulesShow }: NavbarProps) {
               <Link href="/quiz" className={styles.linklinkhelike}>
                 <span>QUIZ</span>
               </Link>
-            </li>
-            <li>
-              <div>
-                {session && session.user?.image ? (
-                  <img
-                    src={session.user.image}
-                    alt="Profile Picture"
-                    width={50}
-                    height={50}
-                    className={styles.profile}
-                  />
-                ) : (
-                  <img
-                    src="fallback.jpg"
-                    alt="Profile Picture"
-                    width={50}
-                    height={50}
-                    className={styles.profile}
-                  />
-                )}
-              </div>
             </li>
           </ul>
         )}
@@ -118,7 +115,7 @@ export default function Navbar({ rulesShow, setRulesShow }: NavbarProps) {
               className={`${styles.btn5} ${
                 isPulseActive ? styles.pulseActive : ""
               }`}
-              onClick={() => setRulesShow(true)} // Add onClick to open rules
+              onClick={() => setRulesShow(true)}
             >
               <h1>RULES</h1>
             </Link>
