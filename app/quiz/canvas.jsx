@@ -30,6 +30,7 @@ const FLAGS = Object.freeze({
 	ENABLE_SHADOWS: !IS_MOBILE_DEVICE,
 	ENABLE_BLOOM: !IS_MOBILE_DEVICE,
 	ENABLE_NOISE: !IS_MOBILE_DEVICE,
+	ENABLE_FOLLOW: !IS_MOBILE_DEVICE,
 })
 
 // https://coolors.co/palette/f72585-b5179e-7209b7-560bad-480ca8-3a0ca3-3f37c9-4361ee-4895ef-4cc9f0
@@ -1000,14 +1001,14 @@ class FullScreen3DExample {
 			}
 		})
 
-		{
+		if(FLAGS.ENABLE_FOLLOW) {
 			// CODE for following cursor
-			// const x = this.#cameraData.positionX
-			//     + 0.3 * (Math.sin(0.1 * t) + Math.sin(0.05 * t));
-			// const y = this.#cameraData.positionY
-			//     + 0.3 * Math.cos(0.3 * t);
-			// this.#camera.position.set(x, y, 1);
-			// this.#camera.updateProjectionMatrix();
+			const x = this.#cameraData.positionX
+			    + 0.3 * (Math.sin(0.1 * t) + Math.sin(0.05 * t));
+			const y = this.#cameraData.positionY
+			    + 0.3 * Math.cos(0.3 * t);
+			this.#camera.position.set(x, y, 1);
+			this.#camera.updateProjectionMatrix();
 		}
 	}
 

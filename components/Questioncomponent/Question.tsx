@@ -29,11 +29,6 @@ const Question : React.FC<QuestionProps> = ({isCorrect , setIsCorrect}) => {
           value: "clue3",
           content: "The third clue will help you make connections between events.",
         },
-        {
-          title: "Map",
-          value: "map",
-          content: "Here is the map that shows the locations of interest.",
-        },
       ];
       setTabs(tabData);
     };
@@ -56,6 +51,9 @@ const Question : React.FC<QuestionProps> = ({isCorrect , setIsCorrect}) => {
         </div>
         <div className={styles.cluemap}>
           <Tabs tabs={tabs} />
+          <div className={styles.map}>
+            Here is the map !
+          </div>
         </div>
       </div>
       <div className={styles.overlay + " " + (isCorrect ? styles.overlayActive : "")}></div>
