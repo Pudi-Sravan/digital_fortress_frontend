@@ -34,6 +34,7 @@
     "lucide-react": "^0.436.0",
     "next": "^14.2.17",
     "next-auth": "^5.0.0-beta.25",
+    "next-auth-http-adapter": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.3.0",

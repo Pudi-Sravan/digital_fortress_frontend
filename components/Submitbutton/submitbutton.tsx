@@ -2,9 +2,9 @@
 import React from 'react';
 import styles from './submit.module.scss';
 
-export default function Submit({ onClick }) {
+export default function Submit() {
   return (
-    <button onClick={onClick} className={styles.DownloadButton}>
+    <button className={styles.DownloadButton}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="32"

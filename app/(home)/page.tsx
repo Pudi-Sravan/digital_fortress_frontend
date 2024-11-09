@@ -8,11 +8,13 @@ import { FaGithub, FaInstagram, FaLinkedin, FaGoogle } from "react-icons/fa";
 import { FaSquareFacebook } from "react-icons/fa6";
 import { FloatingDock } from "@/components/floatingdock/floatingicons";
 import { Meteors } from "@/components/Meteor/meteor";
-import { useSession, getSession } from "next-auth/react";
+import { useSession} from "next-auth/react";
 import handleSignIn from "@/components/GoogleSignIn/googleSignIn";
 import handleLogOut from "@/components/Logout/Logout";
 import Rulescard from "@/components/Rulescard/rulescard";
 import ProfileModal from "@/components/ProfileModal/profilemodal";
+import axios from "axios";
+// import backendSignIn from "@/components/GoogleSignIn/googleSignIn";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -23,13 +25,58 @@ export default function Home() {
   const [rulesShow, setRulesShow] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
-  const { data: session, status } = useSession();
+  const { update , data , status } = useSession();
 
   useEffect(() => {
     const signedIn = async () => {
-      console.log(session);
-      if (session) {
+      console.log(data);
+      const updatedSession = data;
+      if (updatedSession?.accessToken) {
         // await backendSignIn();
+        axios.post(
+                `${process.env.NEXT_PUBLIC_API_URL}quiz/auth/register`,
+                {
+                    accesstoken: updatedSession.accessToken,
+                    type: "1",
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+        )
+        .then(
+          res => {
+            console.log(res);
+            if (res.data.status == 404) {
+                axios
+                    .post(
+                        `${process.env.NEXT_PUBLIC_API_URL}quiz/auth/login`,
+                        {
+                            accesstoken: updatedSession.accessToken,
+                            type: "1",
+                        },
+                        {
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    )
+                    .then(res => {
+                        console.log(res);
+                        // localStorage.token = res.data.token
+                        localStorage.setItem('token', res.data.token);
+                        // router.push("/")
+                    })
+                    .catch(res => console.log(res))
+            } else {
+                console.log("User registered successfully")
+                // localStorage.token = res.data.token
+                localStorage.setItem('token', res.data.token);
+                // router.push("/")
+            }
+          }
+        )
         setIsSignedIn(true);
       } else {
         setIsSignedIn(false);
