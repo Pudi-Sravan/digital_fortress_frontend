@@ -36,17 +36,19 @@ const Question : React.FC<QuestionProps> = ({isCorrect , setIsCorrect}) => {
     fetchTabs();
   }, []);
 
+  const handleCorrectAnswer = () => {
+    setIsCorrect(true);
+    setTimeout(() => {
+      setIsCorrect(false);
+    }, 1500);
+  }
+
   return (
     <>
       <div className={styles.main}>
         <div className={styles.outerquestion}>
           <div className={styles.question}>
-            <MainQuestion onCorrectAnswer={() => {
-              setIsCorrect(true)
-              setTimeout(() => {
-                setIsCorrect(false)
-              }, 2000);
-              }} />
+            <MainQuestion isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer}/>
           </div>
         </div>
         <div className={styles.cluemap}>

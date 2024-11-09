@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import style from './MainQuestion.module.css'
 import axios from 'axios'
+import Submit from '@/components/Submitbutton/submitbutton'
 
-function MainQuestion({ onCorrectAnswer = () => { } }) {
+interface MainQuestionProps {
+    isCorrect: boolean;
+    setIsCorrect : (val:boolean) => void;
+    onCorrectAnswer : () => void;
+}
+
+function MainQuestion({ isCorrect , setIsCorrect , onCorrectAnswer}: MainQuestionProps) {
     const [answer, setAnswer] = useState('')
-    const [isCorrect, setIsCorrect] = useState(false)
 
     useEffect(() => {
-
         const getQuestions = async () => {
             await axios.get(`${process.env.NEXT_PUBLIC_API_URL}quiz/getRound`)
                 .then((res) => {
@@ -25,12 +30,20 @@ function MainQuestion({ onCorrectAnswer = () => { } }) {
         setAnswer(event.target.value);
     };
 
+    const checkAnswer = () => {
+        if(answer.toLowerCase() === 'paris') {
+            return true;
+        }
+        return false;
+    }
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setTimeout(() => {
-            setIsCorrect(true);
+        if(checkAnswer()) {
+            setAnswer('');
             onCorrectAnswer();
-        }, 1000);
+            setIsCorrect(true)
+        };
     };
 
     return (
@@ -44,7 +57,7 @@ function MainQuestion({ onCorrectAnswer = () => { } }) {
                     placeholder="Enter your answer"
                     className={style.input}
                 />
-                <Submit /> 
+                <Submit/> 
             </form>
         </>
     );
