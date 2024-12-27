@@ -4,6 +4,7 @@ import styles from "./Question.module.scss";
 import { Tabs } from "../Tabs/tabs";
 import MainQuestion from "../MainQuestion/MainQuestion";
 import Map from "@/components/Map/map";
+import Rulescard from "../Rulescard/rulescard";
 
 interface QuestionProps {
   isCorrect: boolean;
@@ -12,6 +13,7 @@ interface QuestionProps {
 
 const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
   const [tabs, setTabs] = useState([]);
+  const [rulesShow, setRulesShow] = useState(false);
 
   useEffect(() => {
     const fetchTabs = async () => {
@@ -49,38 +51,66 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
 
   return (
     <>
-      <button
-        onClick={() => window.history.back()}
-        className="absolute top-4 left-4 ml-12 mt-8 text-white cursor-pointer flex items-center justify-center p-2 rounded-full bg-[rgba(44,255,5,0.1)] border-2  transition-transform transform hover:scale-105 border-[rgba(44,255,5,0.7)] hover:bg-white hover:border-transparent hover:text-black shadow-lg"
+      <div
         style={{
-          boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-around",
+          alignItems: "center",
         }}
       >
-        <span
-          className="text-lg font-bold"
+        <button
+          onClick={() => window.history.back()}
+          className="absolute top-4 left-4 ml-12 mt-8 text-white cursor-pointer flex items-center justify-center p-2 rounded-full bg-[rgba(44,255,5,0.1)] border-2  transition-transform transform hover:scale-105 border-[rgba(44,255,5,0.7)] hover:bg-white hover:border-transparent hover:text-black shadow-lg"
           style={{
-            display: "inline-block",
-            transform: "rotate(180deg)",
-            marginRight: "5px",
+            boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
           }}
         >
-          ←
-        </span>
-        Back
-      </button>
+          <span
+            className="text-lg font-bold"
+            style={{
+              display: "inline-block",
+              transform: "rotate(180deg)",
+              marginRight: "5px",
+            }}
+          >
+            ←
+          </span>
+          Back
+        </button>
+        <button
+          onClick={() => setRulesShow(true)}
+          className="absolute top-4 left-4 ml-12 mt-8 text-white cursor-pointer flex items-center justify-center p-2 rounded-full bg-[rgba(44,255,5,0.1)] border-2  transition-transform transform hover:scale-105 border-[rgba(44,255,5,0.7)] hover:bg-white hover:border-transparent hover:text-black shadow-lg"
+          style={{
+            boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+            padding: "10px 18px",
+            marginLeft: "90vw",
+          }}
+        >
+          Rules
+        </button>
+      </div>
+      {rulesShow && (
+        <Rulescard rulesShow={rulesShow} setRulesShow={setRulesShow} />
+      )}
       <div className={styles.main}>
-        <div className={styles.outerquestion}>
-          <div className={styles.question}>
+        <div className={styles.cluemap} style={{ marginRight: "80px" }}>
+          <div className={styles.map} style={{ marginBottom: "40px" }}>
             <MainQuestion
               isCorrect={isCorrect}
               setIsCorrect={setIsCorrect}
               onCorrectAnswer={handleCorrectAnswer}
             />
           </div>
-        </div>
-        <div className={styles.cluemap}>
           <Tabs tabs={tabs} />
-          <div className={styles.map}>
+        </div>
+        <div className={styles.outerquestion}>
+          <div className={styles.question}>
+            {/* <MainQuestion
+              isCorrect={isCorrect}
+              setIsCorrect={setIsCorrect}
+              onCorrectAnswer={handleCorrectAnswer}
+            /> */}
             <Map />
           </div>
         </div>
