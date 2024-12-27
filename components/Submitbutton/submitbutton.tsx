@@ -4,7 +4,7 @@ import styles from './submit.module.scss';
 
 export default function Submit() {
   return (
-    <button className={styles.DownloadButton}>
+    <button className={styles.DownloadButton} style={{marginBottom: "40px"}}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="32"
