@@ -123,12 +123,12 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 275px; // Adjust width as needed
-  height: 100%;
+  width: 275px; 
+  height: 100vh;
   border: 2px solid #39ff14;
-  background-color: #00000083;
+  background-color: #000000c0;
   transform: translateX(-100%); // Initially hidden
-  transition: transform 0.3s ease-in-out; // Smooth transition
+  transition: transform 0.3s ease-in-out;
   z-index: 1000;
 
   h1 {
@@ -337,5 +337,13 @@
 
   100% {
     transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+  }
+}
+@media (max-width:380px) {
+  .nav{
+    height: 50px;
+    margin-top: 4%;
+    clip-path: polygon(0 0, 94% 0, 100% 50%, 100% 100%, 6% 100%, 0 60%);
+
   }
 }
