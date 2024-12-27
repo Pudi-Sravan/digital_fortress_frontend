@@ -36,16 +36,15 @@
 .cluemap {
   overflow: hidden;
   height: 70vh;
-  width: 35%;
+  width: 60%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .map{
-  height: max(60px, 50%);
-  width: 60%;
-  padding: 2rem 1.5rem;
+  height: max(60px, 100%);
+  width: 100%;
   background-color: rgba(9, 255, 0, 0.89);
   font-size: 1.5rem;
   font-weight: bold;

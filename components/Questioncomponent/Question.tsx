@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./Question.module.scss";
 import { Tabs } from "../Tabs/tabs";
 import MainQuestion from "../MainQuestion/MainQuestion";
+import Map from "@/components/Map/map"
 
 interface QuestionProps{
   isCorrect : boolean ;
@@ -54,7 +55,7 @@ const Question : React.FC<QuestionProps> = ({isCorrect , setIsCorrect}) => {
         <div className={styles.cluemap}>
           <Tabs tabs={tabs} />
           <div className={styles.map}>
-            Here is the map !
+            <Map />
           </div>
         </div>
       </div>

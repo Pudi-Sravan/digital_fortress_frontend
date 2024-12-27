@@ -13,7 +13,6 @@ import handleSignIn from "@/components/GoogleSignIn/googleSignIn";
 import handleLogOut from "@/components/Logout/Logout";
 import Rulescard from "@/components/Rulescard/rulescard";
 import ProfileModal from "@/components/ProfileModal/profilemodal";
-import Map from "@/components/Map/map"
 import axios from "axios";
 // import backendSignIn from "@/components/GoogleSignIn/googleSignIn";
 
