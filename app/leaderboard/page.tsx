@@ -1,6 +1,6 @@
 "use client";
 import styles from "./page.module.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import Loader from "@/components/3Dloader/Loader";
 import Navbar from "@/components/Navbar/navbar";
 import { FaGithub, FaInstagram, FaLinkedin, FaGoogle } from "react-icons/fa";
@@ -15,6 +15,7 @@ import Rulescard from "@/components/Rulescard/rulescard";
 export default function Leaderboard(){
     const [loading, setLoading] = useState(true);
     const [ rulesShow, setRulesShow ] = useState(false);
+    const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
     useEffect(() => {
         const timer = setTimeout(() => {
           setLoading(false);
@@ -54,7 +55,7 @@ export default function Leaderboard(){
             {rulesShow && <Rulescard rulesShow={rulesShow} setRulesShow={setRulesShow}/>}
             <Meteors className={styles.meteor} />
             <div className={styles.main2}>
-            <Navbar rulesShow={rulesShow} setRulesShow={setRulesShow}/>
+            <Navbar rulesShow={rulesShow} setRulesShow={setRulesShow} isProfileModalOpen={isProfileModalOpen} setIsProfileModalOpen={setIsProfileModalOpen}/>
               <div className={styles.ranks}>
               <Positions />
                 <Tiles />

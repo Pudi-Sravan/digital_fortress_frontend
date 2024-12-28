@@ -271,6 +271,51 @@
     }
   }
 }
+
+@media (max-width: 480px) {
+  .main {
+    .main2 {
+      .head {
+        font-size: 2rem; // Smaller font size for small devices
+        margin-top: 10%;
+        margin-left: 1%;
+        width: 90%; // Adjust width
+        .animatedText {
+          .space {
+            width: 4rem; // Smaller space
+          }
+        }
+      }
+
+      .Footer {
+        font-size: 14px; // Smaller font size for small devices
+        width: 80%; // Adjust width
+        margin-top: 50%;
+      }
+
+      .backbutton {
+        height: 45px; // Smaller button size
+        width: 45px;
+
+        .buttonContainer1 {
+          width: 45px;
+          height: 45px;
+
+          button {
+            width: 45px;
+            height: 45px;
+
+            svg {
+              width: 14px; // Smaller icon size
+              height: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: 380px) {
   .main {
     .main2 {
