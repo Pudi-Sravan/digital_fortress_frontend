@@ -105,6 +105,41 @@
     font-weight: 400;
 }
 
+@media (max-width: 480px) {
+    .container {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center;   /* Center align items */
+        gap: 10px;            /* Reduce spacing between items */
+    }
+
+    .leaderboardItem, 
+    .first, 
+    .second, 
+    .third, 
+    .canvasContainer {
+        width: 90%;  /* Make the cards take up 90% of the viewport width */
+        height: auto; /* Let height adjust automatically */
+    }
+
+    .first {
+        height: 12rem; /* Adjust height for emphasis */
+    }
+
+    .avatar {
+        width: 4rem; /* Reduce avatar size for smaller screens */
+        height: 4rem;
+    }
+
+    .position {
+        font-size: 1.2rem; /* Slightly smaller font size */
+    }
+
+    .name, .score {
+        font-size: 1rem; /* Reduce font size for smaller screens */
+    }
+}
+
+
 
 
 

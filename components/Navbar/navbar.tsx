@@ -115,7 +115,11 @@ export default function Navbar({ rulesShow, setRulesShow , isProfileModalOpen, s
               className={`${styles.btn5} ${
                 isPulseActive ? styles.pulseActive : ""
               }`}
-              onClick={() => setRulesShow(true)}
+              onClick={() => {
+                setRulesShow(true);
+                handleHeaderClick();
+              }}
+              
             >
               <h1>RULES</h1>
             </Link>
