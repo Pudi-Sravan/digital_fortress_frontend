@@ -20,6 +20,7 @@
     flex-direction: column;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.408);
+    overflow-y: auto;
 
     .ranks {
       height: 75%;
@@ -36,7 +37,7 @@
       width: 56%;
       font-size: 25px;
       color: white;
-      position: absolute;
+      //position: absolute;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -52,14 +53,19 @@
 @media (max-width: 480px) {
   .main {
     .main2 {
+      overflow-y: auto;
       .ranks {
-        height: 70%;
+        height: 80%;
+        margin-bottom: 2px;
       }
 
       .Footer {
+        height: 45px;
         font-size: 14px; // Smaller font size for small devices
         width: 80%; // Adjust width
-        margin-top: 50%;
+        margin-top:35px;
+        
+       // margin-top: 50%;
       }
     }
   }
@@ -70,8 +76,9 @@
   .main {
     overflow: hidden;
     .main2 {
+      overflow-y: auto;
       .ranks {
-        height: 65%;
+        height: 80%;
       }
 
       .Footer {

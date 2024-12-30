@@ -110,6 +110,10 @@
         flex-direction: column; /* Stack items vertically */
         align-items: center;   /* Center align items */
         gap: 10px;            /* Reduce spacing between items */
+        width: 90%;
+        padding: 5px;
+        justify-content: center;
+        position: relative;
     }
 
     .leaderboardItem, 
