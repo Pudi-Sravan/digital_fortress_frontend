@@ -5,6 +5,7 @@ import { Tabs } from "../Tabs/tabs";
 import MainQuestion from "../MainQuestion/MainQuestion";
 import Map from "@/components/Map/map";
 import Rulescard from "../Rulescard/rulescard";
+import QuestionTab from "../QuestionTab/questiontab";
 
 interface QuestionProps {
   isCorrect: boolean;
@@ -95,22 +96,18 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
       )}
       <div className={styles.main}>
         <div className={styles.cluemap} style={{ marginRight: "80px" }}>
-          <div className={styles.map} style={{ marginBottom: "40px" }}>
+          {/* <div className={styles.map} style={{ marginBottom: "40px" }}>
             <MainQuestion
               isCorrect={isCorrect}
               setIsCorrect={setIsCorrect}
               onCorrectAnswer={handleCorrectAnswer}
             />
-          </div>
+          </div> */}
+          <QuestionTab />
           <Tabs tabs={tabs} />
         </div>
         <div className={styles.outerquestion}>
           <div className={styles.question}>
-            {/* <MainQuestion
-              isCorrect={isCorrect}
-              setIsCorrect={setIsCorrect}
-              onCorrectAnswer={handleCorrectAnswer}
-            /> */}
             <Map />
           </div>
         </div>
@@ -118,6 +115,7 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
       <div
         className={`${styles.overlay} ${isCorrect ? styles.overlayActive : ""}`}
       ></div>
+        {/* <QuestionTab /> */}
     </>
   );
 };

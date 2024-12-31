@@ -14,6 +14,7 @@ import handleLogOut from "@/components/Logout/Logout";
 import Rulescard from "@/components/Rulescard/rulescard";
 import ProfileModal from "@/components/ProfileModal/profilemodal";
 import axios from "axios";
+import QuestionTab from "@/components/QuestionTab/questiontab";
 // import backendSignIn from "@/components/GoogleSignIn/googleSignIn";
 
 export default function Home() {
@@ -187,8 +188,8 @@ export default function Home() {
                     className={styles.iconButton}
                     onClick={async (
                       event:
-                        | React.MouseEvent<HTMLButtonElement>
-                        | React.TouchEvent<HTMLButtonElement>
+                      | React.MouseEvent<HTMLButtonElement>
+                      | React.TouchEvent<HTMLButtonElement>
                     ) => {
                       event.preventDefault();
                       handleSignIn();
@@ -209,8 +210,8 @@ export default function Home() {
                     className={styles.iconButton}
                     onClick={async (
                       event:
-                        | React.MouseEvent<HTMLButtonElement>
-                        | React.TouchEvent<HTMLButtonElement>
+                      | React.MouseEvent<HTMLButtonElement>
+                      | React.TouchEvent<HTMLButtonElement>
                     ) => {
                       event.preventDefault();
                       await handleLogOut();
@@ -221,7 +222,6 @@ export default function Home() {
                 </div>
               </div>
             )}
-
             <div className={styles.Footer}>
               <h1>CREATED BY GNU/LINUX USERS' GROUP</h1>
               <FloatingDock items={socialMediaItems} />
