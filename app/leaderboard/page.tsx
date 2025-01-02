@@ -11,63 +11,68 @@ import Tiles from "@/components/ranktiles/page";
 import { Meteors } from "@/components/Meteor/meteor";
 import Rulescard from "@/components/Rulescard/rulescard";
 
+export default function Leaderboard() {
+  const [loading, setLoading] = useState(true);
+  const [rulesShow, setRulesShow] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
 
-export default function Leaderboard(){
-    const [loading, setLoading] = useState(true);
-    const [ rulesShow, setRulesShow ] = useState(false);
-    const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
-    useEffect(() => {
-        const timer = setTimeout(() => {
-          setLoading(false);
-        }, 2500);
-        return () => clearTimeout(timer);
-      }, []);
+  const socialMediaItems = [
+    {
+      title: "Facebook",
+      icon: <FaSquareFacebook style={{ color: "black" }} />,
+      href: "https://www.facebook.com/yourprofile",
+    },
+    {
+      title: "GitHub",
+      icon: <FaGithub style={{ color: "black" }} />,
+      href: "https://github.com/yourprofile",
+    },
+    {
+      title: "Instagram",
+      icon: <FaInstagram style={{ color: "black" }} />,
+      href: "https://www.instagram.com/yourprofile",
+    },
+    {
+      title: "LinkedIn",
+      icon: <FaLinkedin style={{ color: "black" }} />,
+      href: "https://www.linkedin.com/in/yourprofile",
+    },
+  ];
 
-    const socialMediaItems = [
-        {
-          title: "Facebook",
-          icon: <FaSquareFacebook style={{ color: "black" }} />,
-          href: "https://www.facebook.com/yourprofile",
-        },
-        {
-          title: "GitHub",
-          icon: <FaGithub style={{ color: "black" }} />,
-          href: "https://github.com/yourprofile",
-        },
-        {
-          title: "Instagram",
-          icon: <FaInstagram style={{ color: "black" }} />,
-          href: "https://www.instagram.com/yourprofile",
-        },
-        {
-          title: "LinkedIn",
-          icon: <FaLinkedin style={{ color: "black" }} />,
-          href: "https://www.linkedin.com/in/yourprofile",
-        },
-      ];
-
-    return (
-        <main className={styles.main}>
-          {loading ? (
-            <Loader />
-          ) : (
-            <>
-            {rulesShow && <Rulescard rulesShow={rulesShow} setRulesShow={setRulesShow}/>}
-            <Meteors className={styles.meteor} />
-            <div className={styles.main2}>
-            <Navbar rulesShow={rulesShow} setRulesShow={setRulesShow} isProfileModalOpen={isProfileModalOpen} setIsProfileModalOpen={setIsProfileModalOpen}/>
-              <div className={styles.ranks}>
-              <Positions />
-                <Tiles />
-              
-              </div>
-              <div className={styles.Footer}>
-                <h1>CREATED BY GNU/LINUX USERS' GROUP</h1>
-                <FloatingDock items={socialMediaItems} />
-              </div>
-              </div>
-            </>
+  return (
+    <main className={styles.main}>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          {rulesShow && (
+            <Rulescard rulesShow={rulesShow} setRulesShow={setRulesShow} />
           )}
-        </main>
-      );
+          <Meteors className={styles.meteor} />
+          <div className={styles.main2}>
+            <Navbar
+              rulesShow={rulesShow}
+              setRulesShow={setRulesShow}
+              isProfileModalOpen={isProfileModalOpen}
+              setIsProfileModalOpen={setIsProfileModalOpen}
+            />
+            <div className={styles.ranks}>
+              <Positions />
+              <Tiles />
+            </div>
+            <div className={styles.Footer}>
+              <h1>CREATED BY GNU/LINUX USERS' GROUP</h1>
+              <FloatingDock items={socialMediaItems} />
+            </div>
+          </div>
+        </>
+      )}
+    </main>
+  );
 }
