@@ -6,6 +6,7 @@ import MainQuestion from "../MainQuestion/MainQuestion";
 import Map from "@/components/Map/map";
 import Rulescard from "../Rulescard/rulescard";
 import QuestionTab from "../QuestionTab/questiontab";
+import { useDeviceType } from "@/hooks/useDeviceType";
 
 interface QuestionProps {
   isCorrect: boolean;
@@ -15,6 +16,7 @@ interface QuestionProps {
 const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
   const [tabs, setTabs] = useState([]);
   const [rulesShow, setRulesShow] = useState(false);
+  const deviceType = useDeviceType();
 
   useEffect(() => {
     const fetchTabs = async () => {
@@ -62,7 +64,7 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
       >
         <button
           onClick={() => window.history.back()}
-          className="absolute top-4 left-4 ml-12 mt-8 text-white cursor-pointer flex items-center justify-center p-2 rounded-full bg-[rgba(44,255,5,0.1)] border-2  transition-transform transform hover:scale-105 border-[rgba(44,255,5,0.7)] hover:bg-white hover:border-transparent hover:text-black shadow-lg"
+          className="absolute top-4 left-4 max-sm:ml-2 ml-12 mt-8 text-white cursor-pointer flex items-center justify-center p-2 rounded-full bg-[rgba(44,255,5,0.1)] border-2  transition-transform transform hover:scale-105 border-[rgba(44,255,5,0.7)] hover:bg-white hover:border-transparent hover:text-black shadow-lg"
           style={{
             boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
           }}
@@ -81,11 +83,10 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
         </button>
         <button
           onClick={() => setRulesShow(true)}
-          className="absolute top-4 left-4 ml-12 mt-8 text-white cursor-pointer flex items-center justify-center p-2 rounded-full bg-[rgba(44,255,5,0.1)] border-2  transition-transform transform hover:scale-105 border-[rgba(44,255,5,0.7)] hover:bg-white hover:border-transparent hover:text-black shadow-lg"
+          className="absolute top-4 left-4 max-sm:ml-72 ml-12 mt-8 text-white cursor-pointer flex items-center justify-center p-2 rounded-full bg-[rgba(44,255,5,0.1)] border-2  transition-transform transform hover:scale-105 border-[rgba(44,255,5,0.7)] hover:bg-white hover:border-transparent hover:text-black shadow-lg"
           style={{
             boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
             padding: "10px 18px",
-            marginLeft: "90vw",
           }}
         >
           Rules
@@ -95,27 +96,44 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
         <Rulescard rulesShow={rulesShow} setRulesShow={setRulesShow} />
       )}
       <div className={styles.main}>
-        <div className={styles.cluemap} style={{ marginRight: "80px" }}>
-          {/* <div className={styles.map} style={{ marginBottom: "40px" }}>
+        {deviceType === "mobile" ? (
+          <>
+            <div className={styles.questionTab}>
+              <QuestionTab />
+            </div>
+            <div className={styles.tabs}>
+              <Tabs tabs={tabs} />
+            </div>
+            <div className={styles.outerquestion}>
+              <div className={styles.question}>
+                <Map />
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className={styles.cluemap} style={{ marginRight: "80px" }}>
+              {/* <div className={styles.map} style={{ marginBottom: "40px" }}>
             <MainQuestion
               isCorrect={isCorrect}
               setIsCorrect={setIsCorrect}
               onCorrectAnswer={handleCorrectAnswer}
             />
           </div> */}
-          <QuestionTab />
-          <Tabs tabs={tabs} />
-        </div>
-        <div className={styles.outerquestion}>
-          <div className={styles.question}>
-            <Map />
-          </div>
-        </div>
+              <QuestionTab />
+              <Tabs tabs={tabs} />
+            </div>
+            <div className={styles.outerquestion}>
+              <div className={styles.question}>
+                <Map />
+              </div>
+            </div>
+          </>
+        )}
       </div>
       <div
         className={`${styles.overlay} ${isCorrect ? styles.overlayActive : ""}`}
       ></div>
-        {/* <QuestionTab /> */}
     </>
   );
 };

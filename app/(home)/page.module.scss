@@ -274,6 +274,7 @@
 
 @media (max-width: 480px) {
   .main {
+    overflow: hidden;
     .main2 {
       .head {
         font-size: 2rem; // Smaller font size for small devices
@@ -282,7 +283,7 @@
         width: 90%; // Adjust width
         .animatedText {
           .space {
-            width: 4rem; // Smaller space
+            width: 3.5rem; // Smaller space
           }
         }
       }
@@ -290,7 +291,7 @@
       .Footer {
         font-size: 14px; // Smaller font size for small devices
         width: 80%; // Adjust width
-        margin-top: 50%;
+        margin-top: 38rem;
       }
 
       .backbutton {

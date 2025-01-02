@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./questiontab.module.scss";
 import Submit from "../Submitbutton/submitbutton"; 
+import { useDeviceType } from "@/hooks/useDeviceType";
 
 const QuestionTab = () => {
+  const deviceType = useDeviceType();
   return (
     <div className={styles.card}>
       <div className={styles.topSection}>
@@ -17,9 +19,9 @@ const QuestionTab = () => {
             placeholder="Enter text"
           />
         </div>
-        <div className={styles.row}>
+        {deviceType === "monitor" && (<div className={styles.row}>
           <Submit /> 
-        </div>
+        </div>)}
       </div>
     </div>
   );

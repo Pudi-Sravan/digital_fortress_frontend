@@ -51,3 +51,47 @@
   from, to { border-color: transparent }
   50% { border-color: orange; }
 }
+
+/* Media Query for Smaller Screens */
+// @media (max-width: 768px) {
+//   .fadeInContainer {
+//     margin-top: 5%;
+//     height: auto; /* Adjust height to fit content */
+//   }
+
+//   .outerFadeIn {
+//     height: auto; /* Adjust height */
+//     max-width: 90%; /* Reduce width */
+//     clip-path: polygon(0 0, 90% 0, 100% 30%, 100% 100%, 10% 100%, 0 70%);
+//   }
+
+//   .innerFadeIn {
+//     font-size: 1rem; /* Smaller font size */
+//     padding: 5px; /* Reduced padding */
+//   }
+
+//   .typewriter h3 {
+//     font-size: 1rem; /* Adjust font size for smaller screens */
+//     letter-spacing: 0.05em; /* Reduce letter spacing */
+//     padding: 0 5px; /* Adjust padding */
+//   }
+// }
+
+/* Media Query for Extra Small Screens */
+@media (max-width: 480px) {
+  .outerFadeIn {
+    height: auto;
+    max-width: 100%; /* Full width for very small screens */
+    clip-path: polygon(0 0, 85% 0, 100% 25%, 100% 100%, 15% 100%, 0 75%);
+  }
+
+  .innerFadeIn {
+    font-size: 0.9rem; /* Further reduce font size */
+    padding: 4px; /* Adjust padding */
+  }
+
+  .typewriter h3 {
+    font-size: 0.9rem; /* Smaller font size */
+    letter-spacing: 0.04em; /* Minimal spacing for very small screens */
+  }
+}

@@ -1,6 +1,7 @@
 .card {
-  width: 680px;
-  min-height: 380px;
+  width: 90%; /* Adjust width to fit smaller screens */
+  max-width: 680px;
+  height: 1000px; /* Reduced min height for smaller screens */
   border-radius: 20px;
   background: transparent;
   background-color: rgba(9, 255, 0, 0.387);
@@ -8,14 +9,13 @@
   overflow: hidden;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  margin-bottom: 20px;
-  color: lightgreen;;
-  clip-path: polygon(0 0, 87% 0, 100% 21%, 100% 100%, 13% 100%, 0 81%); 
+  margin: 20px auto; /* Center the card */
+  color: lightgreen;
+  clip-path: polygon(0 0, 87% 0, 100% 21%, 100% 100%, 13% 100%, 0 81%);
 }
 
-
 .topSection {
-  height: 180px;
+  height: 150px; /* Adjusted height */
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -25,33 +25,32 @@
 }
 
 .question {
-  font-family: "Courier New", monospace; 
-  padding: 10px 15px 10px; 
-  letter-spacing: 0.15em; 
-  font-size: 2rem; 
-  color: #00ffcc; 
-  text-align: center; 
+  font-family: "Courier New", monospace;
+  padding: 10px 10px; /* Adjusted padding */
+  letter-spacing: 0.1em; /* Reduced spacing */
+  font-size: 1.5rem; /* Reduced font size */
+  color: #00ffcc;
+  text-align: center;
   max-width: 90%;
   position: relative;
   z-index: 1;
 }
 
-
 .inputSection {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap; /* Wrap inputs on smaller screens */
   gap: 10px;
-  margin-bottom: 20px;
-  justify-content: space-between;
+  margin-bottom: 15px; /* Reduced margin */
+  justify-content: center; /* Center the inputs */
   width: 100%;
-  max-width: 500px;
+  max-width: 400px;
   margin: 0 auto;
 }
 
 .input {
   flex: 1;
-  padding: 15px 10px;
-  font-size: 12px;
+  padding: 10px; /* Adjusted padding */
+  font-size: 14px; /* Adjusted font size */
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
@@ -62,23 +61,23 @@
 }
 
 .card .bottomSection {
-  margin-top: 20px;
+  margin-top: 15px; /* Adjusted margin */
   padding: 10px;
 }
 
 .card .bottomSection .title {
   display: block;
-  font-size: 17px;
+  font-size: 14px; /* Adjusted font size */
   font-weight: bold;
   color: white;
   text-align: center;
-  letter-spacing: 2px;
+  letter-spacing: 1px; /* Reduced spacing */
 }
 
 .card .bottomSection .row {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 15px; /* Adjusted margin */
 }
 
 .card .bottomSection .row .submitButton {
@@ -93,4 +92,39 @@
 
 .card .bottomSection .row .submitButton:hover {
   background-color: #00b7d9;
+}
+
+/* Media Query for Smaller Screens */
+@media (max-width: 768px) {
+  .card {
+    width: 95%; /* Adjusted for smaller screens */
+    padding: 8px;
+    height: 220px;
+  }
+
+  .topSection {
+    height: 120px; /* Adjusted height */
+  }
+
+  .question {
+    font-size: 1.2rem; /* Reduced font size */
+  }
+
+  .inputSection {
+    gap: 5px;
+    max-width: 90%; /* Adjusted width */
+  }
+
+  .input {
+    font-size: 12px; /* Reduced font size */
+    padding: 8px;
+  }
+
+  .card .bottomSection .title {
+    font-size: 12px; /* Adjusted font size */
+  }
+
+  .card .bottomSection .row .submitButton {
+    padding: 0px 12px; /* Reduced padding */
+  }
 }

@@ -152,4 +152,4 @@ const TypewriterEffect = ({ text, speed = 50, pause = 1000 }) => {
       </h3>
     </div>
   );
-};
+}
