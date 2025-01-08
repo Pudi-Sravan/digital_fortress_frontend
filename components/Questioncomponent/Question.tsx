@@ -56,7 +56,7 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
     <>
       <div
         style={{
-          width: "100%",
+          width: "100vw",
           display: "flex",
           justifyContent: "space-around",
           alignItems: "center",
@@ -83,7 +83,7 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
         </button>
         <button
           onClick={() => setRulesShow(true)}
-          className="absolute top-4 left-4 max-sm:ml-72 ml-12 mt-8 text-white cursor-pointer flex items-center justify-center p-2 rounded-full bg-[rgba(44,255,5,0.1)] border-2  transition-transform transform hover:scale-105 border-[rgba(44,255,5,0.7)] hover:bg-white hover:border-transparent hover:text-black shadow-lg"
+          className="absolute top-4 right-4 mr-12 max-sm:mr-2  mt-8 text-white cursor-pointer flex items-center justify-center p-2 rounded-full bg-[rgba(44,255,5,0.1)] border-2  transition-transform transform hover:scale-105 border-[rgba(44,255,5,0.7)] hover:bg-white hover:border-transparent hover:text-black shadow-lg"
           style={{
             boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
             padding: "10px 18px",
