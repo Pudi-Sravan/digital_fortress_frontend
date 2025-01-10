@@ -15,11 +15,17 @@ const Map = () => {
 
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
-      center: [-74.5, 40], // starting position [lng, lat]
-      zoom: 3 // starting zoom
+      center: [-74.5, 40], 
+      zoom: 3 
     });
-  });
 
+    //if (listings.length === 0) return;
+    //listings.forEach(listing => {
+      new mapboxgl.Marker({ color: "#3bb2d0" })
+        .setLngLat([-74.5, 40])
+        .addTo(mapRef.current);
+    });
+  //});
   return (
     <div
       style={{ height: '100%' }}
