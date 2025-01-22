@@ -20,25 +20,26 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
 
   useEffect(() => {
     const fetchTabs = async () => {
-      const tabData: any = [
+      const tabData = [
         {
           title: "Clue 1",
           value: "clue1",
-          content:
-            "This is the first clue that will guide you through the mystery.",
+          content: "This is the first clue that will guide you through the mystery.",
+          answer: "answer1",
         },
         {
           title: "Clue 2",
           value: "clue2",
           content: "This clue provides additional insights and hints.",
+          answer: "answer2",
         },
         {
           title: "Clue 3",
           value: "clue3",
-          content:
-            "The third clue will help you make connections between events.",
+          content: "The third clue will help you make connections between events.",
+          answer: "answer3",
         },
-      ];
+      ];      
       setTabs(tabData);
     };
 

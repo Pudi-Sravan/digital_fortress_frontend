@@ -8,10 +8,11 @@ import styles from "./style.module.scss";
 type Tab = {
   title: string;
   value: string;
-  content?: string[];
+  content: string; // Question text
+  answer: string;  // Correct answer
 };
 
-// Type for the Tabs component props
+// Tabs component props
 export const Tabs = ({
   tabs: propTabs,
   containerClassName,
@@ -25,6 +26,8 @@ export const Tabs = ({
 }) => {
   const [active, setActive] = useState<Tab | null>(propTabs[0] || null);
   const [tabs, setTabs] = useState<Tab[]>(propTabs);
+  const [userInput, setUserInput] = useState("");
+  const [feedback, setFeedback] = useState("");
 
   useEffect(() => {
     if (propTabs.length > 0) {
@@ -35,9 +38,23 @@ export const Tabs = ({
 
   const moveSelectedTabToTop = (idx: number) => {
     setActive(tabs[idx]);
+    setFeedback(""); // Clear feedback when switching tabs
+    setUserInput(""); // Clear input when switching tabs
   };
 
-  const [hovering, setHovering] = useState(false);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput(e.target.value);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      if (active && userInput.trim().toLowerCase() === active.answer.toLowerCase()) {
+        setFeedback("Correct Answer!");
+      } else {
+        setFeedback("Incorrect Answer. Try Again!");
+      }
+    }
+  };
 
   if (!active) return null;
 
@@ -53,8 +70,6 @@ export const Tabs = ({
           <button
             key={tab.value}
             onClick={() => moveSelectedTabToTop(idx)}
-            onMouseEnter={() => setHovering(true)}
-            onMouseLeave={() => setHovering(false)}
             className={cn("relative px-4 py-2 rounded-full", tabClassName)}
             style={{
               transformStyle: "preserve-3d",
@@ -79,52 +94,50 @@ export const Tabs = ({
           </button>
         ))}
       </div>
-      <FadeInDiv tabs={tabs} active={active} hovering={hovering} />
+      <div className={styles.fadeInContainer}>
+        <motion.div
+          key={active.value}
+          layoutId={active.value}
+          className={styles.outerFadeIn}
+          style={{
+            opacity: 1,
+            transition: "opacity 0.3s ease-in-out",
+            zIndex: 2,
+          }}
+        >
+          <div className={styles.innerFadeIn}>
+            {/* Display Question */}
+            <TypewriterEffect text={active.content} speed={50} pause={1000} />
+
+            {/* Input Box for Answer */}
+            <div className={styles.inputContainer}>
+              <input
+                type="text"
+                placeholder="Enter your answer"
+                value={userInput}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyPress}
+                className={styles.inputBox}
+              />
+              {feedback && <p className={styles.feedback}>{feedback}</p>}
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </>
   );
 };
 
-// Type for FadeInDiv props
-export const FadeInDiv = ({ tabs, active, hovering }) => {
-  return (
-    <div className={styles.fadeInContainer}>
-      {tabs.map((tab, idx) => (
-        <motion.div
-          key={tab.value}
-          layoutId={tab.value}
-          className={styles.outerFadeIn}
-          style={{
-            opacity: active.value === tab.value ? 1 : 0.5,
-            transition: "opacity 0.3s ease-in-out",
-            zIndex: active.value === tab.value ? 2 : 1,
-            top: hovering ? idx * -15 : 5,
-          }}
-          animate={{
-            y: active.value === tab.value ? [0, 40, 0] : 0,
-          }}
-        >
-          {active.value === tab.value && (
-            <div className={styles.innerFadeIn}>
-              {/* Inline Typewriter effect */}
-              <TypewriterEffect
-                text={
-                  typeof tab.content === "string"
-                    ? tab.content
-                    : tab.content.join(" ")
-                }
-                speed={50}
-                pause={1000}
-              />
-            </div>
-          )}
-        </motion.div>
-      ))}
-    </div>
-  );
-};
-
-// Typewriter effect function
-const TypewriterEffect = ({ text, speed = 50, pause = 1000 }) => {
+// Typewriter Effect
+const TypewriterEffect = ({
+  text,
+  speed = 50,
+  pause = 1000,
+}: {
+  text: string;
+  speed?: number;
+  pause?: number;
+}) => {
   const [displayedText, setDisplayedText] = useState("");
   const [charIndex, setCharIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
@@ -152,4 +165,4 @@ const TypewriterEffect = ({ text, speed = 50, pause = 1000 }) => {
       </h3>
     </div>
   );
-}
+};
