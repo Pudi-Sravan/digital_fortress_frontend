@@ -2,17 +2,15 @@ import React, { useRef } from 'react';
 import styles from "./ranktiles.module.scss";
 import leaderboard from "@/data.json";
 
-export default function Tiles() {
-  // const data = [
-  //   { title: "Ford", rank: "1" },
-  //   { title: "UFC", rank: "2" },
-  //   { title: "Lincoln", rank: "3" },
-  //   { title: "Royal Caribbean", rank: "4" },
-  //   { title: "Sleepiq", rank: "5" },
-  //   { title: "NFL", rank: "6" },
-  //   { title: "Nike", rank: "7" },
-  // ];
-  const data = leaderboard;
+interface Ranking {
+  image: string;
+  name: string;
+  rank: number;
+  score: number;
+}
+
+export default function Tiles({rankings}: {rankings: Ranking[]}) {
+  const data = rankings;
 
   const spanRef = useRef<HTMLSpanElement>(null);
 
@@ -51,8 +49,8 @@ export default function Tiles() {
           onMouseLeave={handleMouseOut}
         >
           <div className={styles.namerank}>
-          <p>{data.indexOf(item) + 4}</p>
-          <p style={{marginLeft:"12px",fontSize:"20px"}}>{item.username}</p>
+          <p>{item.rank}</p>
+          <p style={{marginLeft:"12px",fontSize:"20px"}}>{item.name}</p>
           </div>
           
           <div className={styles.scorebox}
