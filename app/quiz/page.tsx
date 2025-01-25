@@ -12,6 +12,7 @@ export default function Quiz() {
   const [isCorrect, setIsCorrect] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const animationRef = useRef<CarAnimation | null>(null);
+  
 
   useEffect(() => {
     if (typeof window !== 'undefined' && containerRef.current) {

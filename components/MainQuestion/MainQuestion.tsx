@@ -4,6 +4,7 @@ import axios from 'axios'
 import Submit from '@/components/Submitbutton/submitbutton'
 
 interface MainQuestionProps {
+    ques: any ;
     isCorrect: boolean;
     setIsCorrect : (val:boolean) => void;
     onCorrectAnswer : () => void;
@@ -12,19 +13,19 @@ interface MainQuestionProps {
 function MainQuestion({ isCorrect , setIsCorrect , onCorrectAnswer}: MainQuestionProps) {
     const [answer, setAnswer] = useState('')
 
-    useEffect(() => {
-        const getQuestions = async () => {
-            await axios.get(`${process.env.NEXT_PUBLIC_API_URL}quiz/getRound`)
-                .then((res) => {
-                    console.log(res);
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
-        }
-        console.log("Inside Use Effect");
-        getQuestions();
-    }, [])
+    // useEffect(() => {
+    //     const getQuestions = async () => {
+    //         await axios.get(`${process.env.NEXT_PUBLIC_API_URL}quiz/getRound`)
+    //             .then((res) => {
+    //                 console.log(res);
+    //             })
+    //             .catch((error) => {
+    //                 console.log(error);
+    //             })
+    //     }
+    //     console.log("Inside Use Effect");
+    //     getQuestions();
+    // }, [])
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAnswer(event.target.value);
