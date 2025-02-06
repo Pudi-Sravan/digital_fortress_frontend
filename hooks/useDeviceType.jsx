@@ -5,8 +5,8 @@ export const useDeviceType = () => {
 
     function getDeviceType() {
         const width = window.innerWidth;
-        if (width <= 768) return "mobile";
-        else if (width > 768 && width <= 1024) return "tablet";
+        if (width <= 480) return "mobile";
+        else if (width > 480 && width <= 900) return "tablet";
         return "monitor";
     }
 

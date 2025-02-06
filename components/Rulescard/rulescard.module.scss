@@ -85,3 +85,22 @@
   color: white;
   transform: rotateY(180deg); // Position the back side of the card
 }
+
+@media (max-width: 480px) {
+  .head {
+    font-size: 3rem; /* Further reduce font size for very small screens */
+    text-align: center; /* Center-align text */
+  }
+
+  .card {
+    min-width: 220px; /* Minimum width for smaller phones */
+    width: 95%; /* Take up nearly all screen width */
+    height: 50%; /* Adjust height */
+    padding: 10px; /* Reduce padding */
+  }
+
+  .cardFront,
+  .cardBack {
+    font-size: 4vw; /* Slightly larger font for readability */
+  }
+}

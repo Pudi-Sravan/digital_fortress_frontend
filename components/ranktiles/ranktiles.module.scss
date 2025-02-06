@@ -56,10 +56,27 @@ $transition-timing: cubic-bezier(0.77, 0, 0.175, 1);
     @include smooth-transition;
     transition-property: color;
 
+    &.secondItem {
+      background: none;
+        &:before,
+        &:after {
+          background-color: silver;
+        }
+    }
+
+    &.thirdItem {
+      background: none;
+        &:before,
+        &:after {
+          background-color: #CD7F32;
+        }
+    }
+
     .namerank {
       width: 30%;
       display: flex;
       align-items: center;
+      z-index: 10;
     }
 
     .scorebox {
@@ -115,6 +132,67 @@ $transition-timing: cubic-bezier(0.77, 0, 0.175, 1);
         background: $tile-color;
         color: $tile-color-green;
       }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .outerDiv {
+    width: 95%;
+    height: 100%;
+  }
+
+  .outerclippedrec {
+    width: 90%;
+    height: 60px;
+    clip-path: polygon(0 0, 95% 0, 100% 45%, 100% 100%, 5% 100%, 0 69%);
+
+    .clippedRectangle {
+      font-size: 0.875rem;
+      padding: 20px;
+      height: 98%;
+      width: calc(100% - 3px); // 2px smaller for the gap
+      clip-path: polygon(0 0, 95% 0, 100% 45%, 100% 100%, 5% 100%, 0 69%);
+    }
+
+    .clippedRectangle .namerank {
+      width: 35%;
+    }
+
+    .clippedRectangle .scorebox {
+      width: 18%; // Increased width
+      height: 40px;
+      clip-path: polygon(0 0, 85% 0, 100% 35%, 100% 100%, 25% 100%, 0 75%);
+      font-size: 1rem;
+      line-height: 3vw;
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .outerDiv {
+    width: 100%;
+  }
+
+  .outerclippedrec {
+    width: 95%;
+    height: 50px;
+
+    .clippedRectangle {
+      font-size: 0.75rem;
+      padding: 15px;
+      height: 48px;
+      width: calc(100% - 2px); // 2px smaller for the gap
+    }
+
+    .clippedRectangle .namerank {
+      width: 40%;
+    }
+
+    .clippedRectangle .scorebox {
+      width: 20%; // Increased width
+      height: 45px;
+      font-size: 0.75rem;
     }
   }
 }

@@ -14,8 +14,7 @@ const renderMatrix = (ref : any , color : any ) => {
     const latin = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const nums = "0123456789";
     const alphabet = katakana + latin + nums;
-
-    const fontSize = 32;
+    const fontSize = window.innerWidth <= 480 ? 14 : 32;
     const columns = canvas.width / fontSize;
 
     const rainDrops : number[]  = [];

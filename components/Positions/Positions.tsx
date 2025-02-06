@@ -2,6 +2,7 @@
 import styles from './Positions.module.scss';
 import Card from "./Card";
 import leaderboard from "@/data.json";
+import { useDeviceType } from '@/hooks/useDeviceType';
 
 interface Ranking {
     image: string;

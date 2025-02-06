@@ -2,7 +2,7 @@
 import styles from "./page.module.scss";
 import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
-import { signIn, signOut } from 'next-auth/react';
+import { signIn, signOut } from "next-auth/react";
 import Question from "@/components/Questioncomponent/Question";
 import Quizrules from "@/components/Rulesquiz/rulesquiz";
 
@@ -15,7 +15,7 @@ export default function Quiz() {
   
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && containerRef.current) {
+    if (typeof window !== "undefined" && containerRef.current) {
       const animation = new CarAnimation(containerRef.current);
       animation.start();
       animationRef.current = animation;
@@ -33,13 +33,17 @@ export default function Quiz() {
   }, [isCorrect]);
 
   return (
-    <><div className={styles.main}>
- {/* <Quizrules/> */}
-      <div ref={containerRef} />
-      <Question isCorrect={isCorrect} setIsCorrect={setIsCorrect} />
-      <div className={`${styles.overlay} ${isCorrect ? styles.overlayActive : ""}`}></div>
-   
-    </div>
-      </>
+    <>
+      <div className={styles.main}>
+        {/* <Quizrules/> */}
+        <div ref={containerRef} />
+        <Question isCorrect={isCorrect} setIsCorrect={setIsCorrect} />
+        <div
+          className={`${styles.overlay} ${
+            isCorrect ? styles.overlayActive : ""
+          }`}
+        ></div>
+      </div>
+    </>
   );
 }

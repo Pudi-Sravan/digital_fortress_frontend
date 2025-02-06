@@ -99,3 +99,23 @@
     font-family: "Lato" , sans-serif;
     font-weight: 400;
 }
+
+@media (max-width: 480px) {
+    .leaderboardItem {
+        font-size: 0.5rem; 
+        width: 90%;
+        height: 10rem; 
+    }
+    .avatar {
+        width: 4rem; 
+        height: 4rem;
+    }
+
+    .position {
+        font-size: 1.4rem; 
+    }
+
+    .username, .score {
+        font-size: 1rem;
+    }
+} 

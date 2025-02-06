@@ -58,7 +58,7 @@ function MainQuestion({ isCorrect , setIsCorrect , onCorrectAnswer}: MainQuestio
                     placeholder="Enter your answer"
                     className={style.input}
                 />
-                <Submit/> 
+                <Submit /> 
             </form>
         </>
     );

@@ -11,14 +11,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
   .main2 {
     height: 100vh;
     width: 100vw;
     position: relative;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.408);
+    overflow-y: auto;
+
     .ranks {
       height: 75%;
       width: 100%;
@@ -28,12 +31,13 @@
       align-items: center;
       margin-bottom: 1%;
     }
+
     .Footer {
       height: 120px;
       width: 56%;
       font-size: 25px;
       color: white;
-      position: absolute;
+      //position: absolute;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -41,6 +45,46 @@
       font-family: "Inter", sans-serif;
       font-weight: 800;
       bottom: 0.5%;
+    }
+  }
+}
+
+/* Responsive styling for 480px */
+@media (max-width: 480px) {
+  .main {
+    .main2 {
+      overflow-y: auto;
+      .ranks {
+        height: 80%;
+        margin-bottom: 2px;
+      }
+
+      .Footer {
+        height: 40px;
+        font-size: 14px; // Smaller font size for small devices
+        width: 80%; // Adjust width
+        margin-top:35px;
+        
+       // margin-top: 50%;
+      }
+    }
+  }
+}
+
+/* Responsive styling for 380px */
+@media (max-width: 380px) {
+  .main {
+    overflow: hidden;
+    .main2 {
+      overflow-y: auto;
+      .ranks {
+        height: 80%;
+      }
+
+      .Footer {
+        font-size: 13px; // Reduce font size
+        width: 80%; // Adjust width
+      }
     }
   }
 }

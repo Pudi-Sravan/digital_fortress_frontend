@@ -1,6 +1,6 @@
 "use client";
 import styles from "./page.module.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import Loader from "@/components/3Dloader/Loader";
 import Navbar from "@/components/Navbar/navbar";
 import { FaGithub, FaInstagram, FaLinkedin, FaGoogle } from "react-icons/fa";
@@ -11,7 +11,6 @@ import Tiles from "@/components/ranktiles/page";
 import { Meteors } from "@/components/Meteor/meteor";
 import Rulescard from "@/components/Rulescard/rulescard";
 import axios from "axios";
-
 
 export default function Leaderboard(){
     const [loading, setLoading] = useState(true);
@@ -98,7 +97,7 @@ export default function Leaderboard(){
               </div>
               </div>
             </>
-          )}
-        </main>
-      );
+      )}
+    </main>
+  );
 }
