@@ -7,8 +7,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 const backendSignIn = async () => {
-    // console.log(session);
-    console.log(process.env.NEXT_PUBLIC_API_URL);
+
     const updatedSession = await getSession();
     if (updatedSession?.accessToken) {
         console.log("backendSignIn");
@@ -26,8 +25,8 @@ const backendSignIn = async () => {
                 }
             )
             .then(res => {
-                console.log(res);
-                if (res.data.status == 402) {
+                
+                if (res.data.status == 404) {
                     axios
                         .post(
                             `${process.env.NEXT_PUBLIC_API_URL}quiz/auth/login`,
@@ -42,7 +41,6 @@ const backendSignIn = async () => {
                             }
                         )
                         .then(res => {
-                            console.log(res);
                             // localStorage.token = res.data.token
                             localStorage.setItem('token', res.data.token);
                             // router.push("/")
@@ -59,8 +57,13 @@ const backendSignIn = async () => {
 }
 
 const handleSignIn = async () => {
-    await signIn('google', { redirect: false });
-    await backendSignIn();
+    try {
+        await signIn('google');
+        await backendSignIn();
+    }
+    catch (error) {
+        console.error('An error occurred during signin:', error);
+    }
 };
 
 export default handleSignIn;

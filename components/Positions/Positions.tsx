@@ -1,21 +1,28 @@
-"use client" ;
+"use client";
 import styles from './Positions.module.scss';
-import Card from "./Card" ;
+import Card from "./Card";
 import leaderboard from "@/data.json";
 import { useDeviceType } from '@/hooks/useDeviceType';
 
-export default function Positions() {
-    const deviceType = useDeviceType();
-    const data = leaderboard.slice(0, 3);
+interface Ranking {
+    image: string;
+    name: string;
+    rank: number;
+    score: number;
+}
+
+export default function Positions({rankings}: {rankings: Ranking[]}) {
     return (
         <div className={styles.container}>
-            {deviceType === "monitor" && (
-                <Card pos='second' username="Jane Doe" avatar="https://www.w3schools.com/howto/img_avatar.png" score="900" />
-            )}
-            <Card pos='first' username="John Doe" avatar="https://www.w3schools.com/howto/img_avatar.png" score="1000" />
-            {deviceType === "monitor" && (
-                <Card pos='third' username="Jack Doe" avatar="https://www.w3schools.com/howto/img_avatar.png" score="800" />
-            )}
+            {rankings.map((ranking, index) => (
+                <Card
+                    key={index}
+                    pos={ranking.rank === 1 ? 'first' : ranking.rank === 2 ? 'second' : 'third'}
+                    username={ranking.name}
+                    avatar={ranking.image}
+                    score={ranking.score.toString()}
+                />
+            ))}
         </div>
     );
 }

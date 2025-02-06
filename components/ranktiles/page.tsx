@@ -4,17 +4,15 @@ import leaderboard from "@/data.json";
 import Canvas from "../Positions/Canvas";
 import { useDeviceType } from "@/hooks/useDeviceType";
 
-export default function Tiles() {
-  // const data = [
-  //   { title: "Ford", rank: "1" },
-  //   { title: "UFC", rank: "2" },
-  //   { title: "Lincoln", rank: "3" },
-  //   { title: "Royal Caribbean", rank: "4" },
-  //   { title: "Sleepiq", rank: "5" },
-  //   { title: "NFL", rank: "6" },
-  //   { title: "Nike", rank: "7" },
-  // ];
-  const data = leaderboard;
+interface Ranking {
+  image: string;
+  name: string;
+  rank: number;
+  score: number;
+}
+
+export default function Tiles({rankings}: {rankings: Ranking[]}) {
+  const data = rankings;
   const deviceType = useDeviceType();
 
   const spanRef = useRef<HTMLSpanElement>(null);
