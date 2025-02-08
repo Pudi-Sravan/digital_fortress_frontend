@@ -154,11 +154,10 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
           <>
             <div className={styles.cluemap} style={{ marginRight: "80px" }}>
               {/* <div className={styles.map} style={{ marginBottom: "40px" }}> */}
-                <MainQuestion ques={question} isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer}/>
+                <MainQuestion ques={question} isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer} clues={tabs}/>
               {/* </div> */}
               {/* <QuestionTab /> */}
               {/* <MainQuestion ques={question} isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer}/> */}
-              <Tabs tabs={tabs} /> 
               {/* <Map /> */}
             </div>
             {/* <div className={styles.outerquestion}>

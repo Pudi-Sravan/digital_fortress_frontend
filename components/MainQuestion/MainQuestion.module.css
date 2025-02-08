@@ -94,6 +94,28 @@
   background-color: #00b7d9;
 }
 
+.clueButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 17px;
+  padding: 12px 20px;
+  color: white;
+  background: linear-gradient(144deg, #000000, #1a1a1a 50%, #0d0d0d);
+  border: none;
+  box-shadow: 0 0.7em 1.5em -0.5em rgba(0, 0, 0, 0.7);
+  letter-spacing: 0.05em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.clueButton:hover {
+  background-color: #0056b3;
+}
+
 /* Media Query for Smaller Screens */
 @media (max-width: 768px) {
   .card {
