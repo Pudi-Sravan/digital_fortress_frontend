@@ -3,6 +3,7 @@ import style from './MainQuestion.module.css'
 import axios from 'axios'
 import Submit from '@/components/Submitbutton/submitbutton'
 import { useDeviceType } from "@/hooks/useDeviceType";
+import { Tabs } from "../Tabs/tabs";
 
 interface MainQuestionProps {
     ques: {
@@ -11,14 +12,25 @@ interface MainQuestionProps {
         audio : string;
         image : string;
     } ;
+    clues : {
+        id: number;
+        question: string;
+        position: number[];
+        isSolved: boolean;
+        title: string;
+        value: string;
+        content: string; // Question text
+        answer: string;  // Correct answer
+    }[];
     isCorrect: number;
     setIsCorrect : (val: number) => void;
     onCorrectAnswer : () => void;
 }
 
-function MainQuestion({ ques, isCorrect , setIsCorrect , onCorrectAnswer}: MainQuestionProps) {
+function MainQuestion({ ques, clues, isCorrect , setIsCorrect , onCorrectAnswer}: MainQuestionProps) {
     const [answer, setAnswer] = useState('')
     const deviceType = useDeviceType();
+    const [isClueModalActive, setIsClueModalActive] = useState(false);
 
     // useEffect(() => {
     //     const getQuestions = async () => {
@@ -74,8 +86,10 @@ function MainQuestion({ ques, isCorrect , setIsCorrect , onCorrectAnswer}: MainQ
     };
 
     return (
+        <>
+        {isClueModalActive && <Tabs tabs={clues}/>} 
         <div className={style.card}>
-            <form onSubmit={handleSubmit} className={style.form}>
+            <form onSubmit={handleSubmit}>
                 <div className={style.topSection}>
                     <p className={style.question}>{ques?.question}</p>
                 </div>
@@ -90,10 +104,16 @@ function MainQuestion({ ques, isCorrect , setIsCorrect , onCorrectAnswer}: MainQ
                         />
                         {isCorrect === -1 && <p className={style.feedback}>Incorrect Answer</p>}
                     </div>
-                    {deviceType === "monitor" && (<div className={style.row}> <Submit/> </div>)}
+                    {deviceType === "monitor" && (<div className={style.row}> 
+                        <Submit/> 
+                        <button onClick={()=>setIsClueModalActive(true)} className={style.clueButton}>
+                            CLUES
+                        </button>
+                        </div>)}
                 </div>
             </form>
         </div>
+        </>
     );
 }
 

@@ -88,7 +88,7 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
   const handleCorrectAnswer = () => {
     setIsCorrect(1);
     setTimeout(() => {
-      setIsCorrect(-1);
+      setIsCorrect(0);
     }, 1500);
   };
 
@@ -153,12 +153,11 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
         ) : (
           <>
             <div className={styles.cluemap} style={{ marginRight: "80px" }}>
-              {/* <div className={styles.map} style={{ marginBottom: "40px" }}>
-                <MainQuestion ques={question} isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer}/>
-              </div> */}
+              {/* <div className={styles.map} style={{ marginBottom: "40px" }}> */}
+                <MainQuestion ques={question} isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer} clues={tabs}/>
+              {/* </div> */}
               {/* <QuestionTab /> */}
               {/* <MainQuestion ques={question} isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer}/> */}
-              {/* <Tabs tabs={tabs} /> */}
               {/* <Map /> */}
             </div>
             {/* <div className={styles.outerquestion}>
@@ -167,10 +166,10 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
               </div>
             </div> */}
             <div className={styles.questionTab}>
-              <MainQuestion ques={question} isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer}/>
+              {/* <MainQuestion ques={question} isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer}/> */}
             </div>
             <div className={styles.cluemap}>
-              <Tabs tabs={tabs} />
+              {/* <Tabs tabs={tabs} /> */}
               {/* <div className={styles.map}>
                 Here is the map !
               </div> */}
