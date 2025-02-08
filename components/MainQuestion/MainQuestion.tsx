@@ -75,7 +75,7 @@ function MainQuestion({ ques, isCorrect , setIsCorrect , onCorrectAnswer}: MainQ
 
     return (
         <div className={style.card}>
-            <form onSubmit={handleSubmit} className={style.form}>
+            <form onSubmit={handleSubmit}>
                 <div className={style.topSection}>
                     <p className={style.question}>{ques?.question}</p>
                 </div>
