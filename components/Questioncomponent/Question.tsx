@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import styles from "./Question.module.scss";
 import { Tabs } from "../Tabs/tabs";
 import MainQuestion from "../MainQuestion/MainQuestion";
@@ -10,8 +10,8 @@ import QuestionTab from "../QuestionTab/questiontab";
 import { useDeviceType } from "@/hooks/useDeviceType";
 
 interface QuestionProps {
-  isCorrect: boolean;
-  setIsCorrect: (val: boolean) => any;
+  isCorrect: number;
+  setIsCorrect: (val: number) => any;
 }
 
 const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
@@ -38,35 +38,57 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
       //   },
       // ];
       try {
-        const ques = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}quiz/getRound`);
-        setQuestion(ques);
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}quiz/getClues`);
-        const tabData = response.data.clues.map((clue: any, index: number) => ({
-          id : clue.id,
-          question : clue.question,
-          position : clue.position,
-          isSolved : clue.solved ,
-          title: `Clue ${index + 1}`,
-          value: `clue${index + 1}`,
-          content: clue.question,
-        }));
-        setTabs(tabData);
-        setQuestion(response.data.question.question);
+        const ques = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}quiz/getRound`,
+          {
+            headers: {
+              Authorization: `Token ${localStorage.token}`,
+            },
+          }
+        );
+
+        if(ques.data.status === 200){
+          setQuestion(ques.data.question);
+        }
+
+        const clue_response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}quiz/getClue`,
+          {
+            headers: {
+              Authorization: `Token ${localStorage.token}`,
+            },
+          }
+        );
+
+        if(clue_response.data.status === 200){
+          const tabData = clue_response.data.clues.map((clue: any, index: number) => ({
+            id : clue.id,
+            question : clue.question,
+            position : clue.position,
+            isSolved : clue.solved ,
+            title: `Clue ${index + 1}`,
+            value: `clue${index + 1}`,
+            content: clue.question,
+          }));
+          setTabs(tabData);
+          console.log(tabData);
+        }
+
+        
       } catch (error) {
         console.error("Error fetching question data:", error);
       }
     }; 
       
      fetchTabs();
-  }, []);
+  }, [isCorrect]);
+
 
   const [rulesShow, setRulesShow] = useState(false);
   const deviceType = useDeviceType();
 
   const handleCorrectAnswer = () => {
-    setIsCorrect(true);
+    setIsCorrect(1);
     setTimeout(() => {
-      setIsCorrect(false);
+      setIsCorrect(-1);
     }, 1500);
   };
 
@@ -132,26 +154,30 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
           <>
             <div className={styles.cluemap} style={{ marginRight: "80px" }}>
               {/* <div className={styles.map} style={{ marginBottom: "40px" }}>
-            <MainQuestion
-              isCorrect={isCorrect}
-              setIsCorrect={setIsCorrect}
-              onCorrectAnswer={handleCorrectAnswer}
-            />
-          </div> */}
-              <QuestionTab />
-              <Tabs tabs={tabs} />
+                <MainQuestion ques={question} isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer}/>
+              </div> */}
+              {/* <QuestionTab /> */}
+              {/* <MainQuestion ques={question} isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer}/> */}
+              {/* <Tabs tabs={tabs} /> */}
+              {/* <Map /> */}
             </div>
-            <div className={styles.outerquestion}>
+            {/* <div className={styles.outerquestion}>
               <div className={styles.question}>
                 <MainQuestion ques={question} isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer}/>
               </div>
+            </div> */}
+            <div className={styles.questionTab}>
+              <MainQuestion ques={question} isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer}/>
             </div>
             <div className={styles.cluemap}>
               <Tabs tabs={tabs} />
-              <div className={styles.map}>
+              {/* <div className={styles.map}>
                 Here is the map !
+              </div> */}
             </div>
-            </div>
+            {/* <div className={styles.tabs}>
+              <Tabs tabs={tabs} />
+            </div> */}
           </>
         )}
       </div>

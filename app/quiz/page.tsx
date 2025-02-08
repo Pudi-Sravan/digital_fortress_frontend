@@ -9,7 +9,7 @@ import Quizrules from "@/components/Rulesquiz/rulesquiz";
 import CarAnimation from "./canvas";
 
 export default function Quiz() {
-  const [isCorrect, setIsCorrect] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const animationRef = useRef<CarAnimation | null>(null);
   

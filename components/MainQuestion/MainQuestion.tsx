@@ -1,17 +1,24 @@
-import React, { use, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import style from './MainQuestion.module.css'
 import axios from 'axios'
 import Submit from '@/components/Submitbutton/submitbutton'
+import { useDeviceType } from "@/hooks/useDeviceType";
 
 interface MainQuestionProps {
-    ques: any ;
-    isCorrect: boolean;
-    setIsCorrect : (val:boolean) => void;
+    ques: {
+        question: string;
+        roundNo: number;
+        audio : string;
+        image : string;
+    } ;
+    isCorrect: number;
+    setIsCorrect : (val: number) => void;
     onCorrectAnswer : () => void;
 }
 
-function MainQuestion({ isCorrect , setIsCorrect , onCorrectAnswer}: MainQuestionProps) {
+function MainQuestion({ ques, isCorrect , setIsCorrect , onCorrectAnswer}: MainQuestionProps) {
     const [answer, setAnswer] = useState('')
+    const deviceType = useDeviceType();
 
     // useEffect(() => {
     //     const getQuestions = async () => {
@@ -31,36 +38,62 @@ function MainQuestion({ isCorrect , setIsCorrect , onCorrectAnswer}: MainQuestio
         setAnswer(event.target.value);
     };
 
-    const checkAnswer = () => {
-        if(answer.toLowerCase() === 'paris') {
-            return true;
+    const checkAnswer = async (): Promise<boolean> =>  {
+        try {
+            const checkResponse = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}quiz/checkRound`,
+            {
+                answer: answer,
+            },
+            {
+                headers: {
+                Authorization: `Token ${localStorage.token}`,
+                },
+            }
+            )
+            
+            return checkResponse.data.status === 200;
+        } 
+        catch (error) {
+            console.error('Error checking answer:', error);
+            return false;
         }
-        return false;
     }
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if(checkAnswer()) {
+        const isAnswerCorrect = await checkAnswer();
+        if(isAnswerCorrect){
+            console.log("Answer is correct");
             setAnswer('');
             onCorrectAnswer();
-            setIsCorrect(true)
+            setIsCorrect(1)
+        }else{
+            console.log("Answer is incorrect");
+            setIsCorrect(-1)
         };
     };
 
     return (
-        <>
+        <div className={style.card}>
             <form onSubmit={handleSubmit} className={style.form}>
-                <h1>What is the capital of France?</h1>
-                <input
-                    type="text"
-                    value={answer}
-                    onChange={handleInputChange}
-                    placeholder="Enter your answer"
-                    className={style.input}
-                />
-                <Submit /> 
+                <div className={style.topSection}>
+                    <p className={style.question}>{ques?.question}</p>
+                </div>
+                <div className={style.bottomSection}>
+                    <div className={style.inputSection}>
+                        <input
+                        type="text"
+                        value={answer}
+                        onChange={handleInputChange}
+                        placeholder="Enter your answer"
+                        className={style.input}
+                        />
+                        {isCorrect === -1 && <p className={style.feedback}>Incorrect Answer</p>}
+                    </div>
+                    {deviceType === "monitor" && (<div className={style.row}> <Submit/> </div>)}
+                </div>
             </form>
-        </>
+        </div>
     );
 }
 
