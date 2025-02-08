@@ -69,6 +69,23 @@
   border-color: #ffffff;
 }
 
+.checkButton{
+  margin: 10px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #39ff14;
+  border-radius: 8px;
+  background-color: #39ff14;
+  color: #000000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.checkButton:hover {
+  background-color: #000000;
+  color: #39ff14;
+}
+
 .feedback {
   margin-top: 10px;
   font-size: 14px;

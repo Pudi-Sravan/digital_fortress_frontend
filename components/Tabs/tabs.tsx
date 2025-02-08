@@ -3,9 +3,14 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import styles from "./style.module.scss";
+import axios from "axios";
 
 // Type for the tab
 type Tab = {
+  id: number;
+  question: string;
+  position: number[];
+  isSolved: boolean;
   title: string;
   value: string;
   content: string; // Question text
@@ -47,14 +52,47 @@ export const Tabs = ({
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      if (active && userInput.trim().toLowerCase() === active.answer.toLowerCase()) {
-        setFeedback("Correct Answer!");
-      } else {
-        setFeedback("Incorrect Answer. Try Again!");
-      }
-    }
+    // if (e.key === "Enter") {
+    //   if (active && userInput.trim().toLowerCase() === active.answer.toLowerCase()) {
+    //     setFeedback("Correct Answer!");
+    //   } else {
+    //     setFeedback("Incorrect Answer. Try Again!");
+    //   }
+    // }
   };
+
+  const checkClueAns = async () => {
+    const trimmedInput = userInput.trim().toLowerCase();
+    try {
+       const checkClueResponse = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}quiz/checkClue`,
+        {
+            clue_id: active?.id,
+            answer: trimmedInput,
+        },
+        {
+            headers: {
+            Authorization: `Token ${localStorage.token}`,
+            },
+        })
+
+        return checkClueResponse.data.status === 200;
+    } catch (error) {
+        console.error('Error checking answer:', error);
+        return false;
+    }
+  }
+
+  const handleCheckClue = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const isAnswerCorrect = await checkClueAns();
+    if (isAnswerCorrect) {
+      setFeedback("Correct Answer!");
+    } else {
+      setFeedback("Incorrect Answer. Try Again!");
+    }
+  }
+
+
 
   if (!active) return null;
 
@@ -106,21 +144,34 @@ export const Tabs = ({
           }}
         >
           <div className={styles.innerFadeIn}>
-            {/* Display Question */}
-            <TypewriterEffect text={active.content} speed={50} pause={1000} />
+            <form onSubmit={handleCheckClue}>
+              {/* Display Question */}
+              <TypewriterEffect text={active.content} speed={50} pause={1000} />
 
-            {/* Input Box for Answer */}
-            <div className={styles.inputContainer}>
-              <input
-                type="text"
-                placeholder="Enter your answer"
-                value={userInput}
-                onChange={handleInputChange}
-                onKeyDown={handleKeyPress}
-                className={styles.inputBox}
-              />
-              {feedback && <p className={styles.feedback}>{feedback}</p>}
-            </div>
+              {/* Input Box for Answer */}
+              {!active.isSolved && (
+              <div className={styles.inputContainer}>
+                <input
+                  type="text"
+                  placeholder="Enter your answer"
+                  value={userInput}
+                  onChange={handleInputChange}
+                  onKeyDown={handleKeyPress}
+                  className={styles.inputBox}
+                />
+                <button type="submit" className={styles.checkButton}>
+                  Check Clue
+                </button>
+                {feedback && <p className={styles.feedback}>{feedback}</p>}
+              </div>)}
+
+              {/* Display Answer */}
+              {active.isSolved && (
+                <div className={styles.answerContainer}>
+                  <p className={styles.answer}>Clue Solved</p>
+                </div>
+              )}
+            </form>
           </div>
         </motion.div>
       </div>
