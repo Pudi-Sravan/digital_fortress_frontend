@@ -1,7 +1,7 @@
 .card {
-  width: 90%; /* Adjust width to fit smaller screens */
-  max-width: 680px;
-  height: 1000px; /* Reduced min height for smaller screens */
+  width: 100%; /* Adjust width to fit smaller screens */
+  max-width: 800px;
+  height: 600px; /* Reduced min height for smaller screens */
   border-radius: 20px;
   background: transparent;
   background-color: rgba(9, 255, 0, 0.387);
@@ -15,7 +15,7 @@
 }
 
 .topSection {
-  height: 150px; /* Adjusted height */
+  height: 300px; /* Adjusted height */
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -37,6 +37,7 @@
 }
 
 .inputSection {
+  padding: 10px 15px;
   display: flex;
   flex-wrap: wrap; /* Wrap inputs on smaller screens */
   gap: 10px;
@@ -77,6 +78,7 @@
 .card .bottomSection .row {
   display: flex;
   justify-content: center;
+  gap: 30px;
   margin-top: 15px; /* Adjusted margin */
 }
 
@@ -95,6 +97,7 @@
 }
 
 .clueButton {
+  height: 60%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,12 +119,48 @@
   background-color: #0056b3;
 }
 
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: transparent;
+  width: 80%;
+  height: 80%;
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.closeButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+
 /* Media Query for Smaller Screens */
 @media (max-width: 768px) {
   .card {
     width: 95%; /* Adjusted for smaller screens */
     padding: 8px;
-    height: 220px;
+    height: 320px;
   }
 
   .topSection {

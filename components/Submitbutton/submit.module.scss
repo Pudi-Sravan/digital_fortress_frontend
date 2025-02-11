@@ -1,78 +1,67 @@
 .DownloadButton {
-    display: flex;
-    align-items: center;
-    font-family: inherit;
-    font-weight: 500;
-    font-size: 17px;
-    padding: 12px 20px;
-    color: white;
-    background: linear-gradient(144deg, #000000, #1a1a1a 50%, #0d0d0d);
-    border: none;
-    box-shadow: 0 0.7em 1.5em -0.5em rgba(0, 0, 0, 0.7);
-    letter-spacing: 0.05em;
-    border-radius: 8px;
-    cursor: pointer;
-    position: relative;
-    transition: all 0.2s;
-  }
-  
-  .DownloadButton svg {
-    margin-right: 8px;
-    width: 25px;
-  }
-  
-  .DownloadButton:hover {
-    box-shadow: 0 0.5em 1.5em -0.5em #1a1a1a;
-    border-top-left-radius: 40px;
-    border-bottom-right-radius: 40px;
-  }
-  
-  .DownloadButton:active {
-    box-shadow: 0 0.3em 1em -0.5em #3d3d3d;
-  }
-  
-  .DownloadButton::before {
-    content: "";
-    width: 4px;
-    height: 40%;
-    background-color: white;
-    position: absolute;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    left: 0;
-    transition: all 0.2s;
-  }
-  
-  .DownloadButton::after {
-    content: "";
-    width: 4px;
-    height: 40%;
-    background-color: white;
-    position: absolute;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    right: 0;
-    transition: all 0.2s;
-  }
-  
-  .DownloadButton:hover::before,
-  .DownloadButton:hover::after {
-    height: 60%;
-  }
-  
-  .DownloadButton:hover::before {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-    transform: translate(5px, -15px) rotate(45deg);
-  }
-  
-  .DownloadButton:hover::after {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    transform: translate(-5px, 15px) rotate(45deg);
-  }
-  
+  display: flex;
+  align-items: center;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 14px; /* Reduced from 17px */
+  padding: 8px 16px; /* Reduced from 12px 20px */
+  color: white;
+  background: linear-gradient(144deg, #000000, #1a1a1a 50%, #0d0d0d);
+  border: none;
+  box-shadow: 0 0.5em 1.2em -0.4em rgba(0, 0, 0, 0.7); /* Reduced shadow */
+  letter-spacing: 0.03em; /* Slightly reduced */
+  border-radius: 6px; /* Reduced from 8px */
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.DownloadButton svg {
+  margin-right: 6px;
+  width: 20px; /* Reduced from 25px */
+}
+
+.DownloadButton:hover {
+  box-shadow: 0 0.4em 1.2em -0.4em #1a1a1a;
+  border-top-left-radius: 30px; /* Adjusted */
+  border-bottom-right-radius: 30px; /* Adjusted */
+}
+
+.DownloadButton:active {
+  box-shadow: 0 0.2em 0.8em -0.3em #3d3d3d;
+}
+
+.DownloadButton::before,
+.DownloadButton::after {
+  content: "";
+  width: 3px; /* Reduced from 4px */
+  height: 30%; /* Adjusted */
+  background-color: white;
+  position: absolute;
+  transition: all 0.2s;
+}
+
+.DownloadButton::before {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  left: 0;
+}
+
+.DownloadButton::after {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  right: 0;
+}
+
+.DownloadButton:hover::before,
+.DownloadButton:hover::after {
+  height: 50%; /* Adjusted */
+}
+
+.DownloadButton:hover::before {
+  transform: translate(4px, -12px) rotate(45deg);
+}
+
+.DownloadButton:hover::after {
+  transform: translate(-4px, 12px) rotate(45deg);
+}
