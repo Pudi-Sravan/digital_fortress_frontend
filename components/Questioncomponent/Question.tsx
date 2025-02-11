@@ -6,7 +6,6 @@ import MainQuestion from "../MainQuestion/MainQuestion";
 import axios from "axios";
 import Map from "@/components/Map/map";
 import Rulescard from "../Rulescard/rulescard";
-import QuestionTab from "../QuestionTab/questiontab";
 import { useDeviceType } from "@/hooks/useDeviceType";
 
 interface QuestionProps {
@@ -20,67 +19,72 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
 
   useEffect(() => {
     const fetchTabs = async () => {
-      // const tabData: any = [
-      //   {
-      //     title: "Clue 1",
-      //     value: "clue1",
-      //     content: "This is the first clue that will guide you through the mystery.",
-      //   },
-      //   {
-      //     title: "Clue 2",
-      //     value: "clue2",
-      //     content: "This clue provides additional insights and hints.",
-      //   },
-      //   {
-      //     title: "Clue 3",
-      //     value: "clue3",
-      //     content: "The third clue will help you make connections between events.",
-      //   },
-      // ];
-      try {
-        const ques = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}quiz/getRound`,
-          {
-            headers: {
-              Authorization: `Token ${localStorage.token}`,
-            },
-          }
-        );
+      const tabData: any = [
+        {
+          title: "Clue 1",
+          value: "clue1",
+          content:
+            "This is the first clue that will guide you through the mystery.",
+        },
+        {
+          title: "Clue 2",
+          value: "clue2",
+          content: "This clue provides additional insights and hints.",
+        },
+        {
+          title: "Clue 3",
+          value: "clue3",
+          content:
+            "The third clue will help you make connections between events.",
+        },
+      ];
+      //   try {
+      //     const ques = await axios.get(
+      //       `${process.env.NEXT_PUBLIC_API_URL}quiz/getRound`,
+      //       {
+      //         headers: {
+      //           Authorization: `Token ${localStorage.token}`,
+      //         },
+      //       }
+      //     );
 
-        if(ques.data.status === 200){
-          setQuestion(ques.data.question);
-        }
+      //     if (ques.data.status === 200) {
+      //       setQuestion(ques.data.question);
+      //     }
 
-        const clue_response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}quiz/getClue`,
-          {
-            headers: {
-              Authorization: `Token ${localStorage.token}`,
-            },
-          }
-        );
+      //     const clue_response = await axios.get(
+      //       `${process.env.NEXT_PUBLIC_API_URL}quiz/getClue`,
+      //       {
+      //         headers: {
+      //           Authorization: `Token ${localStorage.token}`,
+      //         },
+      //       }
+      //     );
 
-        if(clue_response.data.status === 200){
-          const tabData = clue_response.data.clues.map((clue: any, index: number) => ({
-            id : clue.id,
-            question : clue.question,
-            position : clue.position,
-            isSolved : clue.solved ,
-            title: `Clue ${index + 1}`,
-            value: `clue${index + 1}`,
-            content: clue.question,
-          }));
-          setTabs(tabData);
-          console.log(tabData);
-        }
+      //     if (clue_response.data.status === 200) {
+      //       const tabData = clue_response.data.clues.map(
+      //         (clue: any, index: number) => ({
+      //           id: clue.id,
+      //           question: clue.question,
+      //           position: clue.position,
+      //           isSolved: clue.solved,
+      //           title: `Clue ${index + 1}`,
+      //           value: `clue${index + 1}`,
+      //           content: clue.question,
+      //         })
+      //       );
+      //       setTabs(tabData);
+      //       console.log(tabData);
+      //     }
+      //   } catch (error) {
+      //     console.error("Error fetching question data:", error);
+      //   }
+      // };
+      setTabs(tabData);
+    };
 
-        
-      } catch (error) {
-        console.error("Error fetching question data:", error);
-      }
-    }; 
-      
-     fetchTabs();
-  }, [isCorrect]);
-
+    fetchTabs();
+  }, []); //[isCorrect]
 
   const [rulesShow, setRulesShow] = useState(false);
   const deviceType = useDeviceType();
@@ -138,12 +142,17 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
       <div className={styles.main}>
         {deviceType === "mobile" ? (
           <>
-            <div className={styles.questionTab}>
-              <QuestionTab />
-            </div>
-            <div className={styles.tabs}>
+            <MainQuestion
+              ques={question}
+              isCorrect={isCorrect}
+              setIsCorrect={setIsCorrect}
+              onCorrectAnswer={handleCorrectAnswer}
+              clues={tabs}
+            />
+
+            {/* <div className={styles.tabs}>
               <Tabs tabs={tabs} />
-            </div>
+            </div> */}
             <div className={styles.outerquestion}>
               <div className={styles.question}>
                 <Map />
@@ -153,30 +162,19 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
         ) : (
           <>
             <div className={styles.cluemap} style={{ marginRight: "80px" }}>
-              {/* <div className={styles.map} style={{ marginBottom: "40px" }}> */}
-                <MainQuestion ques={question} isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer} clues={tabs}/>
-              {/* </div> */}
-              {/* <QuestionTab /> */}
-              {/* <MainQuestion ques={question} isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer}/> */}
-              {/* <Map /> */}
+              <MainQuestion
+                ques={question}
+                isCorrect={isCorrect}
+                setIsCorrect={setIsCorrect}
+                onCorrectAnswer={handleCorrectAnswer}
+                clues={tabs}
+              />
             </div>
-            {/* <div className={styles.outerquestion}>
+            <div className={styles.outerquestion}>
               <div className={styles.question}>
-                <MainQuestion ques={question} isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer}/>
+                <Map />
               </div>
-            </div> */}
-            <div className={styles.questionTab}>
-              {/* <MainQuestion ques={question} isCorrect={isCorrect} setIsCorrect={setIsCorrect} onCorrectAnswer={handleCorrectAnswer}/> */}
             </div>
-            <div className={styles.cluemap}>
-              {/* <Tabs tabs={tabs} /> */}
-              {/* <div className={styles.map}>
-                Here is the map !
-              </div> */}
-            </div>
-            {/* <div className={styles.tabs}>
-              <Tabs tabs={tabs} />
-            </div> */}
           </>
         )}
       </div>
