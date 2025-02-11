@@ -105,6 +105,7 @@ function MainQuestion({
             <button
               className={style.closeButton}
               onClick={() => setIsClueModalActive(false)}
+              style={{color:"white",fontSize:'25px',cursor:"pointer"}}
             >
               ✖
             </button>

@@ -30,14 +30,15 @@
 }
 
 .typewriter h3 {
-  color: lightgreen; /* Set text color to light green */
+  color: lightgreen; 
   font-family: monospace;
-  overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .15em solid orange; /* The typwriter cursor */
-  white-space: normal; /* Allow text to wrap to the next line */
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  overflow: hidden; 
+  border-right: .15em solid orange; 
+  white-space: normal; 
+  margin: 0 auto; 
   padding: 0 15px;
-  letter-spacing: .15em; /* Adjust as needed */
+  letter-spacing: .15em; 
+  min-height: 200px;
   animation: 
     typing 3.5s steps(30, end),
     blink-caret .5s step-end infinite;
@@ -53,6 +54,7 @@
 .inputContainer {
   margin-top: 5px;
   text-align: center;
+  
 }
 
 .inputBox {
@@ -149,13 +151,13 @@
   .outerFadeIn {
     width: 100%;  /* Fixed width */
     height: 300px; /* Fixed height */
-    clip-path: polygon(0 0, 78% 0, 100% 24%, 100% 99%, 22% 100%, 0 77%); 
+    clip-path: polygon(0 0, 88% 0, 100% 12%, 100% 100%, 12% 100%, 0 88%); 
     margin-bottom: 2px;
   }
   
   .innerFadeIn {
     font-size: 12px;
-    clip-path: polygon(0 0, 78% 0, 100% 24%, 100% 99%, 22% 100%, 0 77%);
+    clip-path: polygon(0 0, 88% 0, 100% 12%, 100% 100%, 12% 100%, 0 88%); 
     padding: 8px;
   }
   .typewriter h3 {
