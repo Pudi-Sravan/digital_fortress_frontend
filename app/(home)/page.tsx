@@ -24,6 +24,7 @@ export default function Home() {
 	const [isSignedIn, setIsSignedIn] = useState(false)
 	const [rulesShow, setRulesShow] = useState(false)
 	const [isProfileModalOpen, setIsProfileModalOpen] = useState(false)
+	const [score , setScore] = useState(0)
 
 	const { update, data, status } = useSession()
 
@@ -98,6 +99,26 @@ export default function Home() {
 		}
 	}, [loading])
 
+	useEffect(() => {
+		const fetchUserScore = async () => {
+			try {
+				const user_score = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}quiz/user`, {
+					headers: {
+						Authorization: `Token ${localStorage.token}`,
+					},
+				})
+				console.log(user_score)
+				setScore(user_score.data.score)
+			} catch {
+				console.log("Error fetching score")
+			}
+		}
+
+		if (isSignedIn) {
+			fetchUserScore()
+		}
+	}, [isSignedIn])
+
 	const animateText = () => {
 		const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 		let frame = 0
@@ -167,7 +188,7 @@ export default function Home() {
 						<ProfileModal
 							isOpen={isProfileModalOpen}
 							onClose={() => setIsProfileModalOpen(false)}
-							points={1234} // Replace with actual points data if available
+							points={score}
 						/>
 					)}
 					{}

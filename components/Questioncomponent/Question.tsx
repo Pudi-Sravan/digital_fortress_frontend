@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Map from "@/components/Map/map";
 import Rulescard from "../Rulescard/rulescard";
 import { useDeviceType } from "@/hooks/useDeviceType";
+import axios from "axios";
 
 interface QuestionProps {
   isCorrect: number;
@@ -88,11 +89,29 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
   const [rulesShow, setRulesShow] = useState(false);
   const deviceType = useDeviceType();
 
-  const handleCorrectAnswer = () => {
+  const handleCorrectAnswer = async () => {
     setIsCorrect(1);
-    setTimeout(() => {
-      setIsCorrect(0);
-    }, 1500);
+    // setTimeout(() => {
+    //   setIsCorrect(0);
+    // }, 1500);
+
+    try {
+      const ques = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}quiz/getRound`,
+        {
+          headers: {
+            Authorization: `Token ${localStorage.token}`,
+          },
+        }
+      );
+
+      if (ques.data.status === 200) {
+        setQuestion(ques.data.question);
+        setIsCorrect(0);
+      }
+    } catch (error) {
+      console.error("Error fetching question data:", error);
+    }
   };
 
   return (
