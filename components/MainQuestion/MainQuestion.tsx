@@ -102,13 +102,13 @@ function MainQuestion({
             className={style.modalContent}
             onClick={(e) => e.stopPropagation()}
           >
-            <button
+            {/* <button
               className={style.closeButton}
               onClick={() => setIsClueModalActive(false)}
               style={{color:"white",fontSize:'25px',cursor:"pointer"}}
             >
               ✖
-            </button>
+            </button> */}
             <Tabs tabs={clues} />
           </div>
         </div>
