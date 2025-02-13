@@ -17,6 +17,7 @@ export default function Leaderboard(){
     const [ rulesShow, setRulesShow ] = useState(false);
     const [leaderboardData, setLeaderboardData] = useState([]);
     const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+    const [score , setScore] = useState(0)
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -24,6 +25,24 @@ export default function Leaderboard(){
         }, 2500);
         return () => clearTimeout(timer);
       }, []);
+    
+      useEffect(() => {
+        const fetchUserScore = async () => {
+          try {
+            const user_score = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}quiz/user`, {
+              headers: {
+                Authorization: `Token ${localStorage.token}`,
+              },
+            })
+            console.log(user_score)
+            setScore(user_score.data.score)
+          } catch {
+            console.log("Error fetching score")
+          }
+        }
+    
+        fetchUserScore();
+      }, [leaderboardData])
 
     useEffect(() => {
       const fetchLeaderboard = async () => {
