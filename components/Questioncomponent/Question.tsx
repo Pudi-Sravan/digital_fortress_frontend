@@ -1,9 +1,8 @@
 "use client";
 import React, { use, useEffect, useState } from "react";
 import styles from "./Question.module.scss";
-import { Tabs } from "../Tabs/tabs";
 import MainQuestion from "../MainQuestion/MainQuestion";
-import axios from "axios";
+import { useRouter } from "next/navigation";
 import Map from "@/components/Map/map";
 import Rulescard from "../Rulescard/rulescard";
 import { useDeviceType } from "@/hooks/useDeviceType";
@@ -16,6 +15,7 @@ interface QuestionProps {
 const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
   const [tabs, setTabs] = useState([]);
   const [question, setQuestion] = useState<any>(null);
+  const navigate = useRouter();
 
   useEffect(() => {
     const fetchTabs = async () => {
@@ -107,10 +107,7 @@ const Question: React.FC<QuestionProps> = ({ isCorrect, setIsCorrect }) => {
         }}
       >
         <button
-          onClick={() => {
-            window.history.back();
-  setTimeout(() => window.location.reload(), 100);
-          }}
+          onClick={() => navigate.push("/")}
           className="absolute top-4 left-4 max-sm:ml-2 ml-12 mt-8 text-white cursor-pointer flex items-center justify-center p-2 rounded-full bg-[rgba(44,255,5,0.1)] border-2  transition-transform transform hover:scale-105 border-[rgba(44,255,5,0.7)] hover:bg-white hover:border-transparent hover:text-black shadow-lg"
           style={{
             boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
